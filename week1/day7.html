@@ -83,63 +83,63 @@ table.st tr:hover td{background:var(--bg)}
 
 
 <div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
-  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">DRF（数据复制框架）完整数据流——佛照 Co-Deploy 场景</p>
-  <svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto">
-    <!-- 连接线 -->
-    <line x1="80" y1="60" x2="680" y2="60" stroke="#D0E4F7" stroke-width="2" stroke-dasharray="5,3"/>
-    <line x1="80" y1="60" x2="400" y2="60" stroke="#005EB8" stroke-width="3"/>
-
-    <!-- 节点1: Fiori申请 -->
-    <circle cx="80" cy="60" r="20" fill="#0B2D47"/>
-    <text x="80" y="56" text-anchor="middle" font-size="16" font-family="Arial">📝</text>
-    <text x="80" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">1. Fiori</text>
-    <text x="80" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">业务申请CR</text>
-
-    <!-- 节点2: Staging -->
-    <circle cx="210" cy="60" r="20" fill="#1F70C1"/>
-    <text x="210" y="56" text-anchor="middle" font-size="16" font-family="Arial">📦</text>
-    <text x="210" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">2. Staging</text>
-    <text x="210" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">USMD*暂存</text>
-
-    <!-- 节点3: 审批 -->
-    <circle cx="340" cy="60" r="20" fill="#4A6FA5"/>
-    <text x="340" y="56" text-anchor="middle" font-size="16" font-family="Arial">👤</text>
-    <text x="340" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">3. 审批</text>
-    <text x="340" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">BRF+工作流</text>
-
-    <!-- 节点4: Active -->
-    <circle cx="470" cy="60" r="20" fill="#059669"/>
-    <text x="470" y="56" text-anchor="middle" font-size="16" font-family="Arial">✅</text>
-    <text x="470" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">4. 激活</text>
-    <text x="470" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">MARA/KNA1</text>
-
-    <!-- 节点5: DRF -->
-    <circle cx="600" cy="60" r="20" fill="#005EB8"/>
-    <text x="600" y="56" text-anchor="middle" font-size="16" font-family="Arial">🔁</text>
-    <text x="600" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">5. DRF分发</text>
-    <text x="600" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">DRFOUT监控</text>
-
-    <!-- 节点6: 目标 -->
-    <circle cx="700" cy="60" r="20" fill="#1B3A6B"/>
-    <text x="700" y="56" text-anchor="middle" font-size="16" font-family="Arial">🏭</text>
-    <text x="700" y="95" text-anchor="middle" font-size="9" fill="#0D1B2A" font-family="Arial" font-weight="700">6. 目标系统</text>
-    <text x="700" y="106" text-anchor="middle" font-size="9" fill="#2C3E50" font-family="Arial">各工厂/子公司</text>
-
-    <!-- 箭头标注 -->
-    <text x="145" y="48" text-anchor="middle" font-size="8" fill="#6B8CB8" font-family="Arial">BRF+校验</text>
-    <text x="275" y="48" text-anchor="middle" font-size="8" fill="#6B8CB8" font-family="Arial">Owner签字</text>
-    <text x="405" y="48" text-anchor="middle" font-size="8" fill="#6B8CB8" font-family="Arial">写入Active</text>
-    <text x="535" y="48" text-anchor="middle" font-size="8" fill="#6B8CB8" font-family="Arial">Filter过滤</text>
-    <text x="650" y="48" text-anchor="middle" font-size="8" fill="#6B8CB8" font-family="Arial">ALE/RFC</text>
-
-    <!-- Co-Deploy标注 -->
-    <rect x="150" y="125" width="290" height="26" rx="4" fill="#EBF4FF" stroke="#A8C4E0" stroke-width="1"/>
-    <text x="295" y="137" text-anchor="middle" font-size="9" fill="#005EB8" font-family="Arial" font-weight="700">Co-Deploy：步骤1-4在同一S/4HANA系统内完成，无需跨系统传输</text>
-
-    <!-- 佛照外围系统 -->
-    <rect x="480" y="125" width="230" height="26" rx="4" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
-    <text x="595" y="137" text-anchor="middle" font-size="9" fill="#065f46" font-family="Arial">步骤5→PLM/WMS等外围系统仍需配置DRF Outbound</text>
-  </svg>
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px">DRF（数据复制框架）完整数据流——佛照 Co-Deploy 场景</p>
+  <div style="display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:8px">
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#0B2D47;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">📝</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">1. Fiori</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">业务申请CR</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:15px;min-width:38px">
+      <div style="font-size:16px;color:var(--primary);font-weight:700">→</div>
+      <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:1px">BRF+校验</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#1F70C1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">📦</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">2. Staging</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">USMD*暂存</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:15px;min-width:38px">
+      <div style="font-size:16px;color:var(--primary);font-weight:700">→</div>
+      <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:1px">Owner签字</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#4A6FA5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">👤</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">3. 审批</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">BRF+工作流</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:15px;min-width:38px">
+      <div style="font-size:16px;color:var(--primary);font-weight:700">→</div>
+      <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:1px">写入Active</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#059669;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">✅</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">4. 激活</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">MARA/KNA1</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:15px;min-width:38px">
+      <div style="font-size:16px;color:var(--primary);font-weight:700">→</div>
+      <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:1px">Filter过滤</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#005EB8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">🔁</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">5. DRF分发</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">DRFOUT监控</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:15px;min-width:38px">
+      <div style="font-size:16px;color:var(--primary);font-weight:700">→</div>
+      <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:1px">ALE/RFC</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;min-width:92px">
+      <div style="width:54px;height:54px;background:#1B3A6B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1">🏭</div>
+      <div style="font-size:10px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">6. 目标系统</div>
+      <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px">各工厂/子公司</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+    <div style="background:var(--pale);border-radius:5px;padding:5px 12px;font-size:10px;color:var(--primary);font-weight:600">Co-Deploy：步骤1-4在同一S/4HANA系统内完成，无需跨系统传输</div>
+    <div style="background:#d1fae5;border-radius:5px;padding:5px 12px;font-size:10px;color:#065f46;font-weight:600">步骤5→PLM/WMS等外围系统仍需配置DRF Outbound</div>
+  </div>
 </div>
 <h2 class="sec">7.1 DRF是什么？</h2>
 <p class="b"><strong>DRF（Data Replication Framework，数据复制框架）</strong>是MDG的"最后一公里"：当主数据在MDG中被审批激活后，DRF负责将其<strong>自动推送</strong>到一个或多个目标系统（Receiving System）。</p>

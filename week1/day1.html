@@ -167,45 +167,44 @@ table.st tr:hover td{background:var(--bg)}
 
 
 <div style="margin:24px 0 28px;background:var(--white);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)">
-  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">MDG 主数据完整治理生命周期</p>
-  <div style="position:relative;padding:0 0 16px">
-    <!-- 连接线 -->
-    <div style="position:absolute;top:30px;left:calc(8.33% + 12px);right:calc(8.33% + 12px);height:3px;background:linear-gradient(90deg,var(--dark),var(--primary),#059669);z-index:0"></div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;position:relative;z-index:1">
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">📝</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">申请</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">业务员Fiori<br>发起Change<br>Request</div>
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px">MDG 主数据完整治理生命周期</p>
+  <div style="position:relative;padding-bottom:8px">
+    <div style="position:absolute;top:27px;left:calc(8.33% + 14px);right:calc(8.33% + 14px);height:3px;background:linear-gradient(90deg,var(--dark),var(--primary),#059669);z-index:0;pointer-events:none"></div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;position:relative;z-index:1">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">📝</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">申请</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">业务员Fiori<br>发起CR</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:#1F70C1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">📦</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">暂存</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">数据进入<br>Staging Area<br>不影响生产</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:#1F70C1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">📦</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">暂存</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">进入Staging<br>不影响生产</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:#4A6FA5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">✔️</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">校验</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">BRF+ 自动<br>检查必填字段<br>编码格式</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:#4A6FA5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">🔍</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">校验</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">BRF+自动<br>检查规则</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">👤</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">审批</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">业务Owner<br>工作流<br>签字确认</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">👤</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">审批</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">业务Owner<br>工作流签字</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:#059669;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">⚡</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">激活</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">数据写入<br>Active Area<br>(MARA等)</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:#059669;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">⚡</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">激活</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">写入Active<br>(MARA等)</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:60px;height:60px;background:#0B2D47;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">🔁</div>
-        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">分发</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">DRF 推送<br>各接收系统<br>工厂/子公司</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:54px;height:54px;background:#0B2D47;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,94,184,.3)">🔁</div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-top:8px;text-align:center">分发</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;margin-top:3px">DRF推送<br>各工厂/系统</div>
       </div>
     </div>
   </div>
-  <div style="background:var(--pale);border-radius:6px;padding:8px 16px;font-size:11px;color:var(--text2);text-align:center;margin-top:4px">
-    💡 审批通过前，Staging Area 中的数据对业务完全不可见——这是 MDG 防止"先进系统再补审批"的核心设计
+  <div style="background:var(--pale);border-radius:6px;padding:8px 16px;font-size:11px;color:var(--text2);text-align:center;margin-top:16px">
+    💡 审批通过前，Staging Area 中的数据对业务完全不可见——彻底杜绝"先进系统再补审批"
   </div>
 </div>
 <h2 class="sec">1.5 MDG生命周期：一条主数据是如何诞生的？</h2>
