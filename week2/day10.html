@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 10 · BP主数据配置实战 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html">Week 1</a><a href="../week2/day8.html"  class='active'>Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="../week1/day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="../week1/day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="../week1/day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="../week1/day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="../week1/day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="../week1/day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="../week1/day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="day10.html" class="active"><span class="dn">D10</span>BP主数据配置实战</a><a href="day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 2 · 案例模拟 / Day 10</div>
+
+<div class="hero">
+  <h1>Day 10 · BP主数据（MDG-BP）配置实战</h1>
+  <div class="sub">华灯集团：客户/供应商合并策略、BP Role设计、反欺诈工作流</div>
+  <div class="meta"><span class="badge">⏱ 约65分钟</span><span class="badge">🔧 配置 + 决策</span></div>
+</div>
+
+<h2 class="sec">10.1 华灯集团BP迁移现状分析</h2>
+<p class="b">根据你的调研，华灯集团ECC中的BP现状如下：</p>
+<table class="st">
+  <tr><th>数据类型</th><th>ECC总数</th><th>问题数</th><th>主要问题</th></tr>
+  <tr><td>客户（KNA1）</td><td>4,200条</td><td>850对重复</td><td>同一经销商在多个法人各建一条</td></tr>
+  <tr><td>供应商（LFA1）</td><td>3,800条</td><td>320条银行账号问题</td><td>银行账号缺失或已过期</td></tr>
+  <tr><td>关联方（既是客户又是供应商）</td><td>约35家</td><td>在ECC中各有独立编码</td><td>需要合并为双Role BP</td></tr>
+</table>
+
+<h2 class="sec">10.2 Task 1：BP号码范围规划</h2>
+<p class="b">华灯集团决定重新规划BP号码范围（Greenfield机会），你的建议方案：</p>
+<table class="st">
+  <tr><th>BP类别</th><th>号码范围</th><th>说明</th></tr>
+  <tr><td>客户型BP（国内）</td><td>1000000000 - 1999999999</td><td>内部流水，系统自动分配</td></tr>
+  <tr><td>客户型BP（境外）</td><td>2000000000 - 2999999999</td><td>区分境内/境外管理</td></tr>
+  <tr><td>供应商型BP（国内）</td><td>3000000000 - 3999999999</td><td>内部流水，系统自动分配</td></tr>
+  <tr><td>供应商型BP（境外）</td><td>4000000000 - 4999999999</td><td>越南/香港子公司的境外供应商</td></tr>
+  <tr><td>双重身份BP（关联方）</td><td>5000000000 - 5999999999</td><td>同时具备客户+供应商Role</td></tr>
+  <tr><td>内部员工BP</td><td>6000000000 - 6999999999</td><td>差旅报销/内部采购使用</td></tr>
+</table>
+
+<div class="box blue"><strong>配置路径：</strong><br>
+SPRO → SAP Business Partner → Business Partner → Basic Settings → Number Ranges and Groupings → Define Number Ranges</div>
+
+<h2 class="sec">10.3 Task 2：BP Role分配规则</h2>
+<p class="b">以下是华灯集团MDG-BP的Role分配设计：</p>
+<table class="st">
+  <tr><th>创建场景</th><th>必须分配的BP Role</th><th>分配时机</th></tr>
+  <tr><td>新建国内客户</td><td>BUP001 + FLCU00 + FLCU01</td><td>MDG-BP CR激活时一次性分配</td></tr>
+  <tr><td>新建境外客户</td><td>BUP001 + FLCU00 + FLCU01（多公司代码）</td><td>同上</td></tr>
+  <tr><td>新建国内供应商</td><td>BUP001 + FLVN00 + FLVN01</td><td>同上</td></tr>
+  <tr><td>关联方（两用）</td><td>BUP001 + FLCU00 + FLCU01 + FLVN00 + FLVN01</td><td>一个BP，两个角色一次性完成</td></tr>
+  <tr><td>员工（差旅）</td><td>BUP001 + BUP002</td><td>HR系统触发或HR顾问手动</td></tr>
+</table>
+
+<h2 class="sec">10.4 Task 3：MDG-BP CR类型设计（含反欺诈）</h2>
+<table class="st">
+  <tr><th>CR类型</th><th>场景</th><th>工作流</th><th>特殊内控</th></tr>
+  <tr><td>HLD_BP_CUST_NEW</td><td>新建客户型BP</td><td>初审（1天）→ SD Owner（2天）→ 激活</td><td>信用代码唯一性校验</td></tr>
+  <tr><td>HLD_BP_VEND_NEW</td><td>新建供应商型BP</td><td>初审（1天）→ MM Owner（2天）→ 激活</td><td>银行账号格式校验</td></tr>
+  <tr><td>HLD_BP_BANK_CHG</td><td>修改供应商银行账号</td><td>申请人发起 → MM Owner审批（1天）→ <strong>财务Controller确认（1天）</strong> → 激活</td><td>⚠️ 双人审批；申请人≠审批人；发邮件通知财务VP</td></tr>
+  <tr><td>HLD_BP_BLOCK</td><td>冻结/停用BP</td><td>MM Owner（供应商）或SD Owner（客户）审批→ 激活</td><td>检查未结应收/应付</td></tr>
+  <tr><td>HLD_BP_BOTH_NEW</td><td>新建双重身份BP（关联方）</td><td>初审→ MM Owner + SD Owner 并行审批 → 激活</td><td>关联方标识强制打标</td></tr>
+</table>
+
+<div class="box amber"><strong>银行账号变更防欺诈规则（关键！）：</strong><br>
+1. CR申请人必须与审批人不同（BRF+权限规则）<br>
+2. 审批链：申请人发起 → MM Owner审批 → 财务Controller二次确认<br>
+3. 激活时自动发邮件给财务VP（通知，非审批）<br>
+4. 系统记录银行账号变更日志，不可删除（审计追踪）</div>
+
+<h2 class="sec">10.5 Task 4：重复客户合并方案</h2>
+<p class="b">华灯集团有850对重复客户（同一经销商在多法人各有一条），合并策略如下：</p>
+<div class="steps">
+  <div class="step"><strong>Step 1</strong>识别重复<br>以统一社会信用代码为主键，辅以名称相似度比对</div>
+  <div class="step"><strong>Step 2</strong>选择"主记录"<br>选择交易量最大/数据最完整的记录作为主BP</div>
+  <div class="step"><strong>Step 3</strong>数据合并<br>将其他记录的有效数据（联系人/地址）合并到主BP</div>
+  <div class="step"><strong>Step 4</strong>历史引用重定向<br>将已停用的重复BP编码映射到新BP（保留历史查询能力）</div>
+  <div class="step"><strong>Step 5</strong>MDG-BP激活<br>在MDG-BP中创建合并后的标准BP记录</div>
+</div>
+
+<h2 class="sec">10.6 MDG-BP UAT测试场景</h2>
+<table class="st">
+  <tr><th>测试ID</th><th>测试描述</th><th>预期结果</th></tr>
+  <tr><td>MDG-BP-TC001</td><td>新建供应商BP，填写银行账号格式：中国建设银行，账号格式（IBAN/本地格式）</td><td>格式校验通过，CR正常提交</td></tr>
+  <tr><td>MDG-BP-TC002</td><td>申请修改供应商银行账号，申请人A = 审批人A（同一人）</td><td>系统拒绝：申请人不能是审批人（双人审批规则）</td></tr>
+  <tr><td>MDG-BP-TC003</td><td>新建关联方BP（越南子公司VN01），同时分配客户和供应商Role</td><td>BP创建成功，同时具备FLCU01和FLVN01两个Role</td></tr>
+  <tr><td>MDG-BP-TC004</td><td>供应商信用代码与已有BP重复，尝试新建</td><td>BRF+唯一性校验拦截，提示"该统一社会信用代码已存在"</td></tr>
+  <tr><td>MDG-BP-TC005</td><td>银行账号变更CR完成后，检查财务VP是否收到自动通知邮件</td><td>财务VP收到包含CR编号/变更内容的自动通知邮件</td></tr>
+</table>
+
+<div class="quiz-wrap" id="q2d10"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. 华灯集团将35家关联方（既是客户又是供应商）统一为双重身份BP，其核心优势是什么？</div><label><input type="radio" name="qq2d100" value="0">节省系统存储空间</label><label><input type="radio" name="qq2d100" value="1">统一管理实体信息（地址/联系人/信用数据），消除ECC中同一公司有两套独立编码的混乱</label><label><input type="radio" name="qq2d100" value="2">提高系统查询速度</label><label><input type="radio" name="qq2d100" value="3">简化权限配置</label><div class="explain">✅ 解析：双重身份BP的核心价值：同一法律实体只有一个BP编号，统一维护基本信息（名称/地址/银行账号），通过Role分别管理其作为客户和供应商的业务数据，消除信息冗余和不一致。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. HLD_BP_BANK_CHG（银行账号变更CR）为什么需要两步审批（MM Owner + 财务Controller）？</div><label><input type="radio" name="qq2d101" value="0">两步审批是MDG的系统强制要求，无法配置为单步</label><label><input type="radio" name="qq2d101" value="1">双人审批是防供应商付款欺诈的核心内控——一人发起，另一人确认，任何单人无法独自完成变更</label><label><input type="radio" name="qq2d101" value="2">提高处理效率</label><label><input type="radio" name="qq2d101" value="3">满足SAP Activate方法论要求</label><div class="explain">✅ 解析：双人审批是防欺诈的关键内控：内部员工（甚至外部黑客）若能独自完成银行账号变更，可以将付款引导到自己账户。双人审批确保需要两个独立人员协同才能完成变更。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. 重复客户合并时，应该以哪个字段作为主要识别键？</div><label><input type="radio" name="qq2d102" value="0">客户名称（完全匹配）</label><label><input type="radio" name="qq2d102" value="1">统一社会信用代码（唯一国家标识）</label><label><input type="radio" name="qq2d102" value="2">电话号码</label><label><input type="radio" name="qq2d102" value="3">SAP客户编号</label><div class="explain">✅ 解析：统一社会信用代码是中国法人实体的唯一国家标识，是识别重复客户的最可靠依据。名称可能有多种写法，电话可能变更，信用代码是不变的唯一ID。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. FLCU01这个BP Role代表什么？</div><label><input type="radio" name="qq2d103" value="0">所有业务伙伴的通用Role</label><label><input type="radio" name="qq2d103" value="1">客户在公司代码层的数据（对应ECC的KNB1）</label><label><input type="radio" name="qq2d103" value="2">供应商采购组织层数据</label><label><input type="radio" name="qq2d103" value="3">内部员工Role</label><div class="explain">✅ 解析：FLCU01 = Customer（Company Code Data）——客户在特定公司代码下的账务数据，包含应收账款科目、付款条款、信用控制区等。对应ECC的KNB1表。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 为什么Greenfield项目推荐重新规划BP号码范围，而不是沿用ECC的客户/供应商编码？</div><label><input type="radio" name="qq2d104" value="0">ECC编码在S/4HANA中不兼容</label><label><input type="radio" name="qq2d104" value="1">Greenfield机会统一编码规范，解决ECC历史遗留混乱；下游系统需同步更新引用，但长期收益更大</label><label><input type="radio" name="qq2d104" value="2">重新编号可以节省存储</label><label><input type="radio" name="qq2d104" value="3">SAP Activate强制要求</label><div class="explain">✅ 解析：Greenfield是编码重置的最佳时机。代价是下游系统需更新引用，但收益是彻底消除ECC历史遗留的编码混乱（如客户号从1起，供应商号也从1起，两者可能冲突）。</div></div><button class="qbtn" onclick="submitQuiz('q2d10')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day9.html">← Day 9</a><div style="flex:1"></div><a href="day11.html">Day 11 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 2 · MDG架构与部署 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html"  class='active'>Week 1</a><a href="../week2/day8.html">Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="day2.html" class="active"><span class="dn">D2</span>MDG架构与部署</a><a href="day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="../week2/day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="../week2/day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="../week2/day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="../week2/day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="../week2/day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 1 · 理论学习 / Day 2</div>
+
+<div class="hero">
+  <h1>Day 2 · MDG 架构与部署模式</h1>
+  <div class="sub">理解MDG的技术架构层次，以及Hub vs Co-Deploy 如何选择</div>
+  <div class="meta"><span class="badge">⏱ 约55分钟</span><span class="badge">📖 架构 + 对比</span></div>
+</div>
+
+<h2 class="sec">2.1 MDG 技术架构三层</h2>
+<table class="st">
+  <tr><th>层次</th><th>名称</th><th>作用</th><th>关键技术</th></tr>
+  <tr><td>第一层</td><td>数据模型层（Data Model）</td><td>定义主数据结构：实体、属性、关系</td><td>MDG Data Modeler（SE80/自定义）</td></tr>
+  <tr><td>第二层</td><td>应用层（Application Framework）</td><td>管理变更请求（CR）全生命周期：暂存、校验、审批、激活</td><td>Change Request Framework (CRF)、BRF+</td></tr>
+  <tr><td>第三层</td><td>用户界面层（UI）</td><td>提供业务用户操作界面</td><td>SAP Fiori（FioriElements + Freestyle）</td></tr>
+</table>
+<div class="box blue">架构记忆口诀：<strong>数据模型→变更请求→Fiori界面</strong>，三层各自独立配置，但相互依赖。</div>
+
+<h2 class="sec">2.2 核心概念：Change Request（变更请求）</h2>
+<p class="b">MDG的所有主数据操作都以 <strong>Change Request（CR）</strong> 为单位管理。一个CR包含：</p>
+<ul class="b">
+  <li><strong>CR类型（Change Request Type）</strong>：定义这是"新建物料"还是"修改客户地址"等操作类型</li>
+  <li><strong>暂存数据（Staging Data）</strong>：申请的主数据内容，审批前不写入Active</li>
+  <li><strong>工作流步骤</strong>：由CR类型决定审批流是1步还是多步</li>
+  <li><strong>状态机</strong>：草稿→提交→审批中→已激活/已拒绝</li>
+</ul>
+<div class="box amber"><strong>重要：</strong>一个CR只能对应一个业务对象（如一条物料记录）。需要批量创建100条物料，需要100个CR，或使用MDG的批量处理功能（File Upload）。</div>
+
+<h2 class="sec">2.3 部署模式：Hub vs Co-Deploy</h2>
+<table class="st">
+  <tr><th>维度</th><th>Hub部署（独立）</th><th>Co-Deploy（嵌入S/4HANA）</th></tr>
+  <tr><td>架构</td><td>独立SAP系统作为MDG主节点，S/4H通过DRF接收</td><td>MDG直接安装在S/4HANA实例上</td></tr>
+  <tr><td>适用场景</td><td>多ERP系统（SAP+非SAP混合）</td><td>单一或少量S/4H系统</td></tr>
+  <tr><td>成本</td><td>高（需额外服务器许可）</td><td>低（无需额外系统）</td></tr>
+  <tr><td>复杂度</td><td>高（网络、接口、同步机制）</td><td>低</td></tr>
+  <tr><td>性能</td><td>与生产系统隔离</td><td>共享资源，高峰期可能影响</td></tr>
+  <tr><td>佛照推荐</td><td>——</td><td>✅ 推荐（单一S/4HANA PCE）</td></tr>
+</table>
+<div class="box green"><strong>佛照决策：</strong>佛照本次实施S/4HANA PCE（私有云），只有一套系统，推荐 <strong>Co-Deploy</strong> 模式，MDG直接运行在S/4HANA上，无需额外系统许可，DRF配置最简单。</div>
+
+<h2 class="sec">2.4 MDG Active Area vs Staging Area</h2>
+<p class="b">MDG最重要的设计思想——<strong>双区分离</strong>：</p>
+<table class="st">
+  <tr><th>区域</th><th>含义</th><th>存储位置</th><th>谁能写</th></tr>
+  <tr><td><strong>Staging Area</strong>（暂存区）</td><td>变更请求中的待审批数据，对业务不可见</td><td>MDG专用staging表（USMD*表）</td><td>CR发起人 + 审批流程</td></tr>
+  <tr><td><strong>Active Area</strong>（活跃区）</td><td>审批通过、已激活的正式主数据</td><td>SAP标准主数据表（MARA/KNA1等）</td><td>仅MDG激活动作</td></tr>
+</table>
+<p class="b">这个设计确保了：审批通过前，任何变更对生产业务都不可见，彻底杜绝"先进系统再补审批"的情况。</p>
+
+<h2 class="sec">2.5 MDG技术组件全貌</h2>
+<table class="st">
+  <tr><th>组件</th><th>用途</th><th>顾问需要会的操作</th></tr>
+  <tr><td>MDG Data Modeler</td><td>定义/扩展数据模型（实体/属性）</td><td>查看标准模型，了解如何添加自定义字段</td></tr>
+  <tr><td>Change Request Framework</td><td>配置CR类型、步骤、状态</td><td>创建新CR类型（如"批量新建物料"）</td></tr>
+  <tr><td>BRF+（Business Rules Framework）</td><td>定义校验规则 + 工作流路由规则</td><td>创建字段必填规则、审批人确定规则</td></tr>
+  <tr><td>UI Configuration</td><td>配置Fiori页面显示哪些字段</td><td>Floorplan Manager配置</td></tr>
+  <tr><td>DRF（Data Replication Framework）</td><td>主数据激活后自动推送给接收系统</td><td>配置出站接口和Filter</td></tr>
+  <tr><td>MDG Edition</td><td>MDG-M/BP/G的标准配置包</td><td>激活正确的业务函数组（NWBC/IMG）</td></tr>
+</table>
+
+<h2 class="sec">2.6 MDG与S/4HANA的关系</h2>
+<p class="b">S/4HANA从1709版本起，MDG作为核心组件内置，<strong>无需单独安装</strong>，只需激活对应的Business Function（业务函数）即可。</p>
+<div class="box blue"><strong>激活路径（Co-Deploy）：</strong><br>
+SPRO → SAP Reference IMG → Cross-Application Components → Master Data Governance<br>
+或：NWBC → MDG Management Console → Activate Business Functions</div>
+<p class="b">激活后，Fiori Launchpad上会出现MDG相关的Tile（应用图标），业务用户即可开始使用。</p>
+
+<div class="quiz-wrap" id="q1d2"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. Co-Deploy部署模式与Hub部署模式最核心的区别是什么？</div><label><input type="radio" name="qq1d20" value="0">Co-Deploy不支持工作流审批</label><label><input type="radio" name="qq1d20" value="1">Co-Deploy将MDG运行在同一S/4HANA实例上，无需额外系统</label><label><input type="radio" name="qq1d20" value="2">Hub部署不支持MDG-M</label><label><input type="radio" name="qq1d20" value="3">两者完全相同，只是名字不同</label><div class="explain">✅ 解析：Co-Deploy：MDG与S/4HANA共用一套系统，适合单一ERP场景，成本低。Hub：MDG独立部署，适合多ERP混合环境。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. MDG的Staging Area（暂存区）存储在哪里？</div><label><input type="radio" name="qq1d21" value="0">和Active主数据放在同一张SAP标准表（如MARA）</label><label><input type="radio" name="qq1d21" value="1">MDG专用的暂存表（USMD*系列表）</label><label><input type="radio" name="qq1d21" value="2">外部数据库</label><label><input type="radio" name="qq1d21" value="3">Excel文件</label><div class="explain">✅ 解析：MDG有自己的staging表空间（USMD开头），与Active的标准主数据表（MARA/KNA1等）完全隔离。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. Change Request（变更请求）的核心作用是？</div><label><input type="radio" name="qq1d22" value="0">直接修改生产数据库</label><label><input type="radio" name="qq1d22" value="1">将主数据变更封装为审批单元，通过工作流管控</label><label><input type="radio" name="qq1d22" value="2">批量导入Excel数据</label><label><input type="radio" name="qq1d22" value="3">生成财务凭证</label><div class="explain">✅ 解析：CR是MDG管控主数据变更的核心单元，所有创建/修改/停用操作都必须通过CR，经审批后才能激活。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. BRF+在MDG中主要承担什么职责？</div><label><input type="radio" name="qq1d23" value="0">管理SAP授权（权限控制）</label><label><input type="radio" name="qq1d23" value="1">定义数据校验规则和工作流审批人路由规则</label><label><input type="radio" name="qq1d23" value="2">生成主数据编码流水号</label><label><input type="radio" name="qq1d23" value="3">执行数据迁移</label><div class="explain">✅ 解析：BRF+（Business Rules Framework plus）在MDG中有两个关键用途：①数据质量校验（必填字段、格式检查）②工作流审批人确定规则（谁来审批这条CR）。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 佛照项目推荐Co-Deploy而非Hub部署，最主要原因是？</div><label><input type="radio" name="qq1d24" value="0">Hub不支持MDG-M</label><label><input type="radio" name="qq1d24" value="1">佛照只有一套S/4HANA系统，Co-Deploy无需额外系统许可</label><label><input type="radio" name="qq1d24" value="2">Hub部署不支持中文</label><label><input type="radio" name="qq1d24" value="3">Co-Deploy性能更好</label><div class="explain">✅ 解析：Hub适合多ERP（SAP+非SAP）混合环境。佛照仅有一套S/4HANA PCE，Co-Deploy成本最低、复杂度最低，是标准推荐方案。</div></div><button class="qbtn" onclick="submitQuiz('q1d2')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day1.html">← Day 1</a><div style="flex:1"></div><a href="day3.html">Day 3 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

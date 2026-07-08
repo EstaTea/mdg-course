@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 6 · 工作流与审批设计 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html"  class='active'>Week 1</a><a href="../week2/day8.html">Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="day6.html" class="active"><span class="dn">D6</span>工作流与审批设计</a><a href="day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="../week2/day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="../week2/day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="../week2/day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="../week2/day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="../week2/day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 1 · 理论学习 / Day 6</div>
+
+<div class="hero">
+  <h1>Day 6 · 工作流与审批设计</h1>
+  <div class="sub">BRF+规则、工作流步骤配置、通知设计、SLA超时处理</div>
+  <div class="meta"><span class="badge">⏱ 约60分钟</span><span class="badge">🔧 配置核心</span></div>
+</div>
+
+<h2 class="sec">6.1 MDG工作流的核心引擎：BRF+</h2>
+<p class="b"><strong>BRF+（Business Rule Framework plus）</strong>是MDG工作流的大脑，承担两件事：</p>
+<ul class="b">
+  <li><strong>路由规则（Routing）</strong>：决定这个CR应该发给谁审批（谁是审批人）</li>
+  <li><strong>校验规则（Validation）</strong>：数据提交时检查是否符合规范（必填、格式、业务规则）</li>
+</ul>
+<div class="box blue"><strong>关键理解：</strong>BRF+是"规则引擎"，而不是"硬编码逻辑"。这意味着审批人可以通过配置（而非ABAP开发）来调整，大大降低维护成本。</div>
+
+<h2 class="sec">6.2 工作流步骤类型</h2>
+<table class="st">
+  <tr><th>步骤类型</th><th>用途</th><th>示例配置</th></tr>
+  <tr><td>Review（审查）</td><td>审查人可以退回给申请人修改</td><td>技术管理员初审：检查编码格式</td></tr>
+  <tr><td>Approval（审批）</td><td>审批人 Approve / Reject，是终结性决策</td><td>业务Owner：确认业务合理性</td></tr>
+  <tr><td>Notification（通知）</td><td>纯通知，无需操作，自动流转</td><td>审批完成后通知申请人和数据管理员</td></tr>
+  <tr><td>Revision（返修）</td><td>审批人退回，申请人修改后重新提交</td><td>格式不符合规范时退回申请人</td></tr>
+</table>
+
+<h2 class="sec">6.3 典型工作流设计：新建物料</h2>
+<div class="steps">
+  <div class="step"><strong>Step 1</strong>申请人提交CR（Fiori填写物料信息）</div>
+  <div class="step"><strong>Step 2</strong>BRF+校验（必填字段/编码格式/重复检查）</div>
+  <div class="step"><strong>Step 3</strong>技术管理员Review（编码合规性确认）</div>
+  <div class="step"><strong>Step 4</strong>业务Owner Approve（业务合理性确认）</div>
+  <div class="step"><strong>Step 5</strong>MDG激活（写入MARA/MARC等表）</div>
+  <div class="step"><strong>Step 6</strong>DRF分发（推送到各接收工厂）</div>
+</div>
+
+<h2 class="sec">6.4 BRF+工作流路由规则详解</h2>
+<p class="b">路由规则决定"谁来审批"，配置方式有三种：</p>
+<table class="st">
+  <tr><th>方式</th><th>适用场景</th><th>举例</th></tr>
+  <tr><td>固定审批人</td><td>小团队，审批人固定不变</td><td>物料Owner永远是张经理</td></tr>
+  <tr><td>基于属性动态路由</td><td>根据数据内容动态决定审批人</td><td>物料类型=ROH时→采购经理审批；FG时→生产经理审批</td></tr>
+  <tr><td>基于组织动态路由</td><td>根据法人/工厂动态分配</td><td>FZ10工厂新建物料→FZ10的工厂管理员；FZ40→FZ40管理员</td></tr>
+</table>
+<div class="box amber"><strong>佛照多法人挑战：</strong>19家法人需要按法人动态路由——不同法人的物料申请，应该路由到对应法人的业务Owner，而不是统一发给一个人。这是MDG工作流配置中最复杂的部分。</div>
+
+<h2 class="sec">6.5 SLA超时处理</h2>
+<p class="b">工作流必须设置超时处理机制，防止CR卡在某个步骤无人处理：</p>
+<table class="st">
+  <tr><th>步骤</th><th>SLA（建议）</th><th>超时动作</th></tr>
+  <tr><td>技术管理员Review</td><td>1个工作日</td><td>发送催办邮件；3天后升级给主管</td></tr>
+  <tr><td>业务Owner Approve</td><td>2个工作日</td><td>发送催办邮件；3天后升级给部门负责人</td></tr>
+  <tr><td>高层审批（重大变更）</td><td>3个工作日</td><td>发送催办邮件；5天后进入"自动审批"或"挂起"（视业务决策）</td></tr>
+</table>
+<p class="b">在SAP中，工作流超时通过 <strong>Work Item Deadline Monitoring</strong>（工作项期限监控）实现，与BRF+结合可配置升级规则。</p>
+
+<h2 class="sec">6.6 工作流通知配置</h2>
+<p class="b">MDG工作流的通知通过SAP Business Workplace或Email发送，关键配置点：</p>
+<ul class="b">
+  <li>通知触发时机：CR提交、步骤完成、审批拒绝、激活完成、超时催办</li>
+  <li>通知内容：自动包含CR编号、物料/BP/科目编号、当前状态、Fiori直达链接</li>
+  <li>通知渠道：SAP Inbox（推荐）+ Email（配置邮件网关后）</li>
+</ul>
+<div class="box blue"><strong>最佳实践：</strong>配置Fiori通知（Notification Center）而非仅SAP Inbox，让业务用户在移动端也能收到审批通知，显著提高处理及时率。</div>
+
+<h2 class="sec">6.7 工作流测试清单</h2>
+<ul class="b">
+  <li>✅ 正常流程测试：发起CR → 各步骤审批 → 激活成功</li>
+  <li>✅ 退回流程测试：审批人退回 → 申请人修改 → 重新提交</li>
+  <li>✅ 拒绝流程测试：审批人拒绝 → CR关闭 → 通知申请人</li>
+  <li>✅ 超时测试：模拟超过SLA时间 → 催办邮件发出 → 升级触发</li>
+  <li>✅ 权限测试：审批人不能是申请人（针对银行账号变更场景）</li>
+  <li>✅ 多法人路由测试：不同法人的CR路由到正确的Owner</li>
+</ul>
+
+<div class="quiz-wrap" id="q1d6"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. BRF+在MDG工作流中的"路由规则"决定什么？</div><label><input type="radio" name="qq1d60" value="0">数据存储在哪个表</label><label><input type="radio" name="qq1d60" value="1">谁来审批这个Change Request</label><label><input type="radio" name="qq1d60" value="2">数据分发到哪个目标系统</label><label><input type="radio" name="qq1d60" value="3">CR的SLA期限</label><div class="explain">✅ 解析：BRF+路由规则决定"谁来审批"：可以是固定人、基于数据属性动态确定、或基于组织架构动态确定。这是工作流配置中最灵活也最重要的部分。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. 工作流的Revision（返修）步骤触发条件是什么？</div><label><input type="radio" name="qq1d61" value="0">审批通过后</label><label><input type="radio" name="qq1d61" value="1">技术管理员或审批人将CR退回给申请人修改</label><label><input type="radio" name="qq1d61" value="2">系统自动超时后</label><label><input type="radio" name="qq1d61" value="3">MDG激活成功后</label><div class="explain">✅ 解析：Revision步骤在审批人认为数据有问题时触发——退回给申请人，申请人修改后重新提交，工作流从Revision步骤或指定步骤重新开始。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. 佛照19家法人场景下，物料CR工作流最适合哪种路由方式？</div><label><input type="radio" name="qq1d62" value="0">固定审批人（统一一个人审批全部19家法人的申请）</label><label><input type="radio" name="qq1d62" value="1">基于法人/工厂动态路由到对应的业务Owner</label><label><input type="radio" name="qq1d62" value="2">随机分配审批人</label><label><input type="radio" name="qq1d62" value="3">不设审批直接激活</label><div class="explain">✅ 解析：19家法人各有自己的业务负责人，需要基于组织（法人/工厂代码）动态路由，将对应法人的申请路由到该法人的业务Owner，而不是全部集中到一人。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. SAP中工作流超时的"催办升级"功能通过什么技术实现？</div><label><input type="radio" name="qq1d63" value="0">ABAP自定义开发</label><label><input type="radio" name="qq1d63" value="1">Work Item Deadline Monitoring（工作项期限监控）+ BRF+</label><label><input type="radio" name="qq1d63" value="2">外部邮件服务器单独触发</label><label><input type="radio" name="qq1d63" value="3">SAP Analytics Cloud</label><div class="explain">✅ 解析：SAP的Work Item Deadline Monitoring可以监控工作项是否超过SLA，结合BRF+中的升级规则，可以实现超时后自动发催办邮件、升级给上级。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 以下哪个场景必须配置"申请人不能是审批人"的权限约束？</div><label><input type="radio" name="qq1d64" value="0">物料描述修改</label><label><input type="radio" name="qq1d64" value="1">供应商银行账号变更</label><label><input type="radio" name="qq1d64" value="2">成本中心层级调整</label><label><input type="radio" name="qq1d64" value="3">科目描述修改</label><div class="explain">✅ 解析：供应商银行账号变更是高风险反欺诈场景——如果申请人可以同时审批，内部人员可以自行修改银行账号后付款到自己账户。双人审批是强制内控要求。</div></div><button class="qbtn" onclick="submitQuiz('q1d6')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day5.html">← Day 5</a><div style="flex:1"></div><a href="day7.html">Day 7 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 8 · 案例介绍与环境准备 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html">Week 1</a><a href="../week2/day8.html"  class='active'>Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="../week1/day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="../week1/day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="../week1/day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="../week1/day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="../week1/day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="../week1/day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="../week1/day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="day8.html" class="active"><span class="dn">D8</span>案例介绍与环境准备</a><a href="day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 2 · 案例模拟 / Day 8</div>
+
+<div class="hero">
+  <h1>Day 8 · Week 2 开始：案例介绍与顾问角色扮演</h1>
+  <div class="sub">了解客户现状，进入MDG顾问角色，规划实施范围</div>
+  <div class="meta"><span class="badge">⏱ 约60分钟</span><span class="badge">🎭 角色扮演</span><span class="badge">案例：华灯集团</span></div>
+</div>
+
+<h2 class="sec">🎯 本周学习模式说明</h2>
+<div class="box blue">
+<strong>你的角色：</strong>MDG顾问（来自艾维登团队），负责华灯集团SAP S/4HANA Greenfield项目的主数据治理模块。<br><br>
+<strong>学习方式：</strong>每天面对真实顾问工作场景，根据案例信息做出配置决策，通过"顾问决策题"和"交付物填写"深化理解。<br><br>
+<strong>案例原型：</strong>华灯集团案例综合参考了多个真实MDG项目（包括：某国内大型家电制造商S/4HANA升级、SAP官方MDG Best Practice案例），为学习目的做了适度调整。
+</div>
+
+<h2 class="sec">📋 客户背景：华灯集团</h2>
+<table class="st">
+  <tr><th>项目信息</th><th>内容</th></tr>
+  <tr><td>客户名称</td><td>华灯电器集团有限公司（虚构，综合真实案例）</td></tr>
+  <tr><td>行业</td><td>家用电器制造（照明+小家电）</td></tr>
+  <tr><td>规模</td><td>年营收约50亿元，员工8,000人</td></tr>
+  <tr><td>法人结构</td><td>8家法人（总部+5个国内工厂+越南子公司+香港贸易公司）</td></tr>
+  <tr><td>项目类型</td><td>S/4HANA 2023 Greenfield，同时上线MDG</td></tr>
+  <tr><td>MDG范围</td><td>MDG-M（物料）+ MDG-BP（客户/供应商）+ MDG-G（财务主数据）</td></tr>
+  <tr><td>部署模式</td><td>Co-Deploy（MDG与S/4HANA同系统）</td></tr>
+  <tr><td>项目时间</td><td>MDG数据治理：前12周；S/4HANA上线：第24周</td></tr>
+</table>
+
+<h2 class="sec">🔍 客户现状诊断（你的调研结论）</h2>
+<p class="b">经过2周现状调研，你整理了以下关键发现：</p>
+
+<h3 class="sub">物料主数据现状</h3>
+<table class="st">
+  <tr><th>问题</th><th>规模</th><th>严重程度</th></tr>
+  <tr><td>物料编码规则不统一（各工厂自行命名）</td><td>全量约85,000条物料</td><td>🔴 高</td></tr>
+  <tr><td>重复物料（同一物料在多工厂有多条记录）</td><td>约2,300条重复对（4,600条记录）</td><td>🔴 高</td></tr>
+  <tr><td>物料利润中心未分配</td><td>约18,000条（21%）</td><td>🔴 高（S/4H阻断项）</td></tr>
+  <tr><td>物料描述中英混杂、缩写不统一</td><td>约35,000条（41%）</td><td>🟡 中</td></tr>
+  <tr><td>停用物料未归档（已停产但未设标记）</td><td>约12,000条（14%）</td><td>🟢 低</td></tr>
+</table>
+
+<h3 class="sub">客商主数据现状</h3>
+<table class="st">
+  <tr><th>问题</th><th>规模</th><th>严重程度</th></tr>
+  <tr><td>重复客户（同一经销商多法人各建一条）</td><td>约850对重复</td><td>🔴 高</td></tr>
+  <tr><td>供应商银行账号未维护或过期</td><td>约320家供应商</td><td>🔴 高（付款风险）</td></tr>
+  <tr><td>统一社会信用代码缺失</td><td>约1,200家客户（约30%）</td><td>🟡 中</td></tr>
+  <tr><td>供应商认证状态未更新</td><td>约500家供应商</td><td>🟡 中</td></tr>
+</table>
+
+<h3 class="sub">财务主数据现状</h3>
+<table class="st">
+  <tr><th>问题</th><th>说明</th><th>严重程度</th></tr>
+  <tr><td>8家法人科目表不统一（各自有独立科目段）</td><td>约300个法人特有科目需要映射</td><td>🔴 高</td></tr>
+  <tr><td>成本中心层级混乱（缺L2事业部层）</td><td>需重新设计层级结构</td><td>🟡 中</td></tr>
+  <tr><td>利润中心与业务线映射不清晰</td><td>部分事业部无独立利润中心</td><td>🔴 高</td></tr>
+</table>
+
+<h2 class="sec">📌 Day 8 顾问任务：MDG实施范围规划</h2>
+<div class="box amber"><strong>你的交付物：</strong>根据以上调研结论，完成"MDG实施优先级矩阵"，决定哪些场景先上MDG、哪些后上。</div>
+
+<h3 class="sub">🧩 顾问决策练习：优先级排序</h3>
+<p class="b">请思考以下场景，并回答每题后的决策题：</p>
+
+<div class="box blue">
+<strong>场景1：</strong>客户要求物料描述规范化（41%不规范）必须在S/4HANA上线时全部完成。<br>
+<strong>你的判断：</strong>这个要求合理吗？如果不合理，你如何说服客户？
+</div>
+
+<div class="quiz-wrap" id="q2d8"><h3>📝 知识测验</h3><div class="qi" data-answer="2"><div class="qt">Q1. 物料利润中心未分配（18,000条，21%）在S/4HANA项目中属于几级问题？</div><label><input type="radio" name="qq2d80" value="0">P3 - 上线后优化即可</label><label><input type="radio" name="qq2d80" value="1">P2 - 上线前完成更好</label><label><input type="radio" name="qq2d80" value="2">P1 - 阻断项，必须在上线前100%完成</label><label><input type="radio" name="qq2d80" value="3">与S/4HANA上线无关</label><div class="explain">✅ 解析：利润中心未分配是S/4HANA阻断项（P1）：S/4HANA的库存过账强制要求利润中心，否则系统报错无法完成收货/发货。必须在上线前100%清洗。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. 华灯集团Co-Deploy部署模式下，MDG激活的物料数据存放在哪里？</div><label><input type="radio" name="qq2d81" value="0">独立的MDG Hub系统</label><label><input type="radio" name="qq2d81" value="1">与S/4HANA共用数据库的Active主数据表（MARA/MARC等）</label><label><input type="radio" name="qq2d81" value="2">外部数据仓库</label><label><input type="radio" name="qq2d81" value="3">需要DRF跨系统传输后才可用</label><div class="explain">✅ 解析：Co-Deploy：MDG和S/4HANA在同一系统，激活的主数据直接写入MARA/MARC等标准表，S/4HANA业务流程可立即使用，无需等待DRF跨系统传输。</div></div><div class="qi" data-answer="2"><div class="qt">Q3. 物料描述不规范（35,000条，41%）属于哪个优先级？为什么？</div><label><input type="radio" name="qq2d82" value="0">P1 - 阻断项，必须上线前完成100%</label><label><input type="radio" name="qq2d82" value="1">P2 - 上线前尽量完成，但不强制100%</label><label><input type="radio" name="qq2d82" value="2">P3 - 不影响上线，上线后持续优化</label><label><input type="radio" name="qq2d82" value="3">与主数据治理无关，由业务自行处理</label><div class="explain">✅ 解析：物料描述不规范是P3——不会阻断S/4HANA的业务流程。MRP/采购/发货等不依赖物料描述的具体格式。建议上线后分批推进，避免上线前过量清洗工作导致整体延期。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. 华灯集团有8家法人，MDG-BP的客户Change Request类型，工作流审批应如何设计？</div><label><input type="radio" name="qq2d83" value="0">统一由集团客户主数据Owner审批所有8家法人的申请</label><label><input type="radio" name="qq2d83" value="1">按法人动态路由：各法人客户申请路由到对应法人的销售/财务Owner</label><label><input type="radio" name="qq2d83" value="2">不需要审批，直接激活</label><label><input type="radio" name="qq2d83" value="3">随机分配给任意一个业务Owner</label><div class="explain">✅ 解析：8家法人各有业务Owner，需要动态路由：越南子公司的客户申请→越南子公司负责人，香港贸易公司的供应商申请→香港负责人。一刀切给同一人审批会造成责任不清。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 一个Change Request（CR）最多能对应几个业务对象（如物料记录）？</div><label><input type="radio" name="qq2d84" value="0">一个CR可以包含多个物料</label><label><input type="radio" name="qq2d84" value="1">一个CR只能对应一个业务对象（如一条物料）</label><label><input type="radio" name="qq2d84" value="2">一个CR可以跨域（同时包含物料和客户）</label><label><input type="radio" name="qq2d84" value="3">一个CR可以对应一个工厂的所有物料</label><div class="explain">✅ 解析：MDG的设计原则：1个CR对应1个业务对象。需要批量创建，可以使用MDG的File Upload功能（多个CR批量发起），或配置专门的批量CR类型（MATBULK等）。</div></div><button class="qbtn" onclick="submitQuiz('q2d8')">提交答案</button><div class="qres"></div></div>
+<div class="box green"><strong>Day 8 完成！</strong>你已经完成了华灯集团的现状诊断，明天开始进入物料主数据的MDG-M配置实战。记得把今天的"优先级矩阵"记录到你的顾问工作笔记中。</div>
+
+<div class="day-nav"><a href="../week1/day7.html">← Day 7</a><div style="flex:1"></div><a href="day9.html">Day 9 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

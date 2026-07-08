@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 12 · 迁移验收与项目总结 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html">Week 1</a><a href="../week2/day8.html"  class='active'>Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="../week1/day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="../week1/day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="../week1/day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="../week1/day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="../week1/day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="../week1/day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="../week1/day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="day12.html" class="active"><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 2 · 案例模拟 / Day 12</div>
+
+<div class="hero">
+  <h1>Day 12 · 迁移验收与顾问项目总结</h1>
+  <div class="sub">UAT验收执行、数据迁移结果分析、MDG顾问交付物清单</div>
+  <div class="meta"><span class="badge">⏱ 约60分钟</span><span class="badge">✅ 收尾验收</span></div>
+</div>
+
+<h2 class="sec">12.1 华灯集团MDG项目：最终状态</h2>
+<p class="b">经过12周的数据治理工作，华灯集团MDG项目在S/4HANA上线前达成以下成果：</p>
+<table class="st">
+  <tr><th>指标</th><th>目标值</th><th>实际达成</th><th>状态</th></tr>
+  <tr><td>物料主数据迁移准确率</td><td>100%</td><td>100%（83,200条）</td><td>✅ 达标</td></tr>
+  <tr><td>物料利润中心分配率</td><td>100%</td><td>100%（清洗18,000条完成）</td><td>✅ 达标</td></tr>
+  <tr><td>重复物料清理</td><td>识别并处理</td><td>2,300对重复，合并2,100对，其余保留</td><td>✅ 达标</td></tr>
+  <tr><td>客户BP迁移准确率</td><td>100%</td><td>100%（3,870条有效客户→BP）</td><td>✅ 达标</td></tr>
+  <tr><td>供应商BP迁移准确率</td><td>100%</td><td>100%（3,480条有效供应商→BP）</td><td>✅ 达标</td></tr>
+  <tr><td>银行账号缺失/过期补全</td><td>≥95%</td><td>98.4%（320条中316条已补全）</td><td>✅ 达标</td></tr>
+  <tr><td>统一科目表对齐</td><td>8家法人统一</td><td>8家法人全部统一到新COA</td><td>✅ 达标</td></tr>
+  <tr><td>MDG工作流UAT通过率</td><td>100%场景</td><td>100%（38个测试场景全部通过）</td><td>✅ 达标</td></tr>
+  <tr><td>P1级遗留问题</td><td>0个</td><td>0个（上线前全部关闭）</td><td>✅ 达标</td></tr>
+  <tr><td>P3级遗留问题（物料描述规范化）</td><td>上线后处理</td><td>35,000条，已制定清洗计划</td><td>📋 遗留（计划中）</td></tr>
+</table>
+
+<h2 class="sec">12.2 MDG UAT最终验收场景</h2>
+<p class="b">以下是12周项目结束时执行的UAT最终验收场景清单（共38个，今天你来复核关键场景）：</p>
+<table class="st">
+  <tr><th>场景分类</th><th>场景数</th><th>通过数</th><th>关键验收结果</th></tr>
+  <tr><td>MDG-M 物料新建/修改/停用</td><td>12</td><td>12</td><td>所有场景包括利润中心必填、编码格式校验全部通过</td></tr>
+  <tr><td>MDG-BP 客户/供应商新建</td><td>8</td><td>8</td><td>双重BP、关联方创建、重复校验全部通过</td></tr>
+  <tr><td>MDG-BP 银行账号变更（反欺诈）</td><td>4</td><td>4</td><td>双人审批、申请人≠审批人规则全部有效</td></tr>
+  <tr><td>MDG-G 科目/成本中心/利润中心</td><td>8</td><td>8</td><td>统一COA创建、层级调整工作流全部通过</td></tr>
+  <tr><td>工作流路由（8法人动态路由）</td><td>6</td><td>6</td><td>越南/香港/总部各法人CR正确路由到对应Owner</td></tr>
+</table>
+
+<h2 class="sec">12.3 数据迁移最终执行记录</h2>
+<h3 class="sub">迁移执行时间线</h3>
+<div class="steps">
+  <div class="step"><strong>试迁移（Week 8）</strong>发现23个格式问题，修复后重新迁移</div>
+  <div class="step"><strong>模拟迁移（Week 10）</strong>全量迁移至测试环境，准确率99.7%（修复3条）</div>
+  <div class="step"><strong>正式迁移（Week 12）</strong>正式迁移至生产环境，准确率100%</div>
+  <div class="step"><strong>期初验证（第1月）</strong>财务完成期初账实相符，MDG业务正式上线运营</div>
+</div>
+
+<h3 class="sub">迁移工具使用</h3>
+<table class="st">
+  <tr><th>迁移对象</th><th>使用工具</th><th>备注</th></tr>
+  <tr><td>物料主数据（MARA/MARC/MBEW）</td><td>SAP S/4HANA Migration Cockpit（LTMC）</td><td>标准迁移模板，无需开发</td></tr>
+  <tr><td>BOM数据</td><td>LSMW（Legacy System Migration Workbench）</td><td>批量处理多层BOM</td></tr>
+  <tr><td>Business Partner（客户/供应商→BP）</td><td>Migration Cockpit + BP转换程序（VBKV_MIGRATE）</td><td>SAP标准BP迁移工具</td></tr>
+  <tr><td>财务主数据（GL/CC/PC）</td><td>Migration Cockpit 标准模板</td><td>直接映射，无需二开</td></tr>
+</table>
+
+<h2 class="sec">12.4 MDG顾问项目交付物清单</h2>
+<p class="b">作为MDG顾问，你在华灯集团项目中完成的交付物：</p>
+<table class="st">
+  <tr><th>交付物</th><th>文件</th><th>状态</th></tr>
+  <tr><td>数据调研分析报告</td><td>HLD_MDG_DataSurvey_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>主数据规划及管理办法</td><td>HLD_MDG_Governance_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>MDG配置文档（CR类型/BRF+规则/UI配置）</td><td>HLD_MDG_Config_Doc_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>工作流设计文档（含路由规则矩阵）</td><td>HLD_MDG_Workflow_Design_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>UAT测试脚本（38个场景）</td><td>HLD_MDG_UAT_Scripts_V1.0.xlsx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>数据迁移执行报告</td><td>HLD_MDG_Migration_Result_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>数据治理总结报告</td><td>HLD_MDG_Summary_Report_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+  <tr><td>MDG运营手册（业务用户使用指南）</td><td>HLD_MDG_User_Guide_V1.0.docx</td><td>✅ 已交付验收</td></tr>
+</table>
+
+<h2 class="sec">12.5 经验教训：MDG项目常见风险与应对</h2>
+<table class="st">
+  <tr><th>风险</th><th>华灯集团应对方式</th><th>通用建议</th></tr>
+  <tr><td>业务Owner不配合审批（工作流卡住）</td><td>每周数据治理例会，由副总主持，强制推进</td><td>必须有C-Level（CFO/COO）背书，否则工作流无法落地</td></tr>
+  <tr><td>利润中心清洗工作量超预期</td><td>提前2个月启动，最终在上线前2周完成</td><td>利润中心是S/4H阻断项，必须在项目规划时排第一优先级</td></tr>
+  <tr><td>MDG Fiori性能问题（大量物料查询慢）</td><td>优化搜索索引，限制默认查询结果集</td><td>MDG Fiori的搜索性能需要在系统实现阶段专项测试</td></tr>
+  <tr><td>外围系统引用旧编码（重新编号带来的影响）</td><td>提前3个月通知OMS/WMS团队，预留改造时间</td><td>Greenfield重新编号必须做全面的影响分析（Impact Analysis）</td></tr>
+</table>
+
+<h2 class="sec">🎓 两周学习总结：你掌握了什么？</h2>
+<div class="box green">
+<strong>Week 1 理论体系（7天）：</strong><br>
+✅ MDG定义/数据域/Staging Area核心架构<br>
+✅ Co-Deploy vs Hub部署决策框架<br>
+✅ MDG-M（物料）/ MDG-BP（业务伙伴）/ MDG-G（财务）三大域<br>
+✅ BRF+校验规则 + 工作流路由规则配置原理<br>
+✅ DRF数据分发框架与Co-Deploy简化方案<br><br>
+<strong>Week 2 实战能力（5天）：</strong><br>
+✅ 物料编码规范设计 + BRF+校验规则编写<br>
+✅ BP号码范围规划 + 双重身份BP设计<br>
+✅ 反欺诈银行账号变更双人审批配置<br>
+✅ 多法人动态路由Decision Table设计<br>
+✅ UAT测试脚本编写 + 数据迁移验收执行<br>
+✅ MDG顾问交付物全套模板熟悉
+</div>
+
+<h2 class="sec">📌 佛照项目应用建议</h2>
+<div class="box blue">
+现在，把华灯集团的案例经验直接映射到佛照项目：<br><br>
+🔁 <strong>编码规范</strong>：参考华灯8位编码方案，为佛照19家法人设计物料/BP编码规范<br>
+🔁 <strong>CR类型</strong>：华灯5种物料CR类型，佛照可直接复用，按需调整SLA<br>
+🔁 <strong>BRF+规则</strong>：RULE-M-001（利润中心必填）在佛照是同样的阻断项<br>
+🔁 <strong>工作流路由</strong>：佛照19家法人→需要更完整的Decision Table（19行 vs 8行）<br>
+🔁 <strong>银行账号反欺诈</strong>：佛照同样适用RULE-BP-003双人审批规则<br>
+🔁 <strong>交付物模板</strong>：直接使用你昨天生成的3份Word模板，填入佛照实际数据
+</div>
+
+<div class="quiz-wrap" id="q2d12"><h3>📝 知识测验</h3><div class="qi" data-answer="0"><div class="qt">Q1. 华灯集团物料利润中心分配率达到100%，这意味着什么？</div><label><input type="radio" name="qq2d120" value="0">所有物料都已设置利润中心，S/4HANA收发货不会因利润中心缺失而报错</label><label><input type="radio" name="qq2d120" value="1">只有FG（成品）类物料需要利润中心</label><label><input type="radio" name="qq2d120" value="2">利润中心分配100%是MDG的评分标准</label><label><input type="radio" name="qq2d120" value="3">物料停产处理完成</label><div class="explain">✅ 解析：利润中心100%分配是S/4HANA的硬性要求：Universal Journal（ACDOCA）的每条凭证都需要利润中心维度。否则库存过账（收货/发货）时系统报错，业务无法正常进行。这是上线前必须100%完成的阻断项。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. 数据迁移执行了3轮（试迁移→模拟→正式），每轮的核心目的分别是？</div><label><input type="radio" name="qq2d121" value="0">3轮完全相同，只是重复验证</label><label><input type="radio" name="qq2d121" value="1">试迁移：发现程序问题；模拟迁移：全量验收；正式迁移：生产环境上线</label><label><input type="radio" name="qq2d121" value="2">试迁移：备份数据；模拟：培训用户；正式：正式启用</label><label><input type="radio" name="qq2d121" value="3">只有第3轮正式迁移有意义</label><div class="explain">✅ 解析：3轮迁移的目的递进：①试迁移找问题（低风险测试）→②模拟迁移全量验收（接近真实）→③正式迁移（不可逆，必须万无一失）。这是SAP Activate数据迁移的标准策略。</div></div><div class="qi" data-answer="2"><div class="qt">Q3. MDG项目中，如果业务Owner长期不处理工作流（审批卡住），最有效的应对措施是什么？</div><label><input type="radio" name="qq2d122" value="0">配置超时后自动批准</label><label><input type="radio" name="qq2d122" value="1">由IT顾问代替业务Owner审批</label><label><input type="radio" name="qq2d122" value="2">必须有C-Level（副总/CFO）主持数据治理会议，强制推进业务Owner责任</label><label><input type="radio" name="qq2d122" value="3">删除卡住的CR，重新发起</label><div class="explain">✅ 解析：MDG落地的最大障碍往往不是技术，而是业务参与度。必须有高层管理人员（副总以上）为数据治理背书，定期召开治理会议，否则工作流只是形式，审批长期卡住。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. 佛照项目与华灯集团案例相比，工作流路由Decision Table的主要差异是什么？</div><label><input type="radio" name="qq2d123" value="0">完全相同，无差异</label><label><input type="radio" name="qq2d123" value="1">佛照有19家法人，Decision Table需要19行映射（华灯是8行），但逻辑结构相同</label><label><input type="radio" name="qq2d123" value="2">佛照不支持动态路由</label><label><input type="radio" name="qq2d123" value="3">佛照需要开发ABAP代替BRF+</label><div class="explain">✅ 解析：原理相同，规模不同：华灯8家法人→8行Decision Table；佛照19家法人→19行Decision Table。BRF+ Decision Table维护简单，增加法人只需新增一行，不需要代码修改。</div></div><div class="qi" data-answer="3"><div class="qt">Q5. 以下哪项不是MDG顾问在项目结束时的必交交付物？</div><label><input type="radio" name="qq2d124" value="0">MDG配置文档（CR类型/BRF+规则）</label><label><input type="radio" name="qq2d124" value="1">UAT测试脚本（所有测试场景）</label><label><input type="radio" name="qq2d124" value="2">MDG运营手册（业务用户使用指南）</label><label><input type="radio" name="qq2d124" value="3">SAP系统ABAP源代码（所有二开）</label><div class="explain">✅ 解析：MDG项目中，ABAP二开通常极少（MDG的设计理念是尽量通过配置实现，而非开发）。且ABAP源代码属于系统实现文档，不是MDG顾问的专项交付物。其他三项都是MDG顾问的标准交付物。</div></div><button class="qbtn" onclick="submitQuiz('q2d12')">提交答案</button><div class="qres"></div></div>
+<div class="box green" style="margin-top:28px;font-size:15px;text-align:center;padding:24px">
+🎉 <strong>恭喜你完成了SAP MDG两周速成营的全部12天课程！</strong><br><br>
+你已经具备了在佛照项目中担任MDG咨询顾问的理论基础和实战能力。<br>
+现在可以直接应用这些知识，配合你之前生成的三份Word模板，开始佛照的MDG治理工作。
+</div>
+
+<div class="day-nav"><a href="day11.html">← Day 11</a><div style="flex:1"></div><span></span></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

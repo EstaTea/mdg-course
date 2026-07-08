@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 9 · 物料主数据配置实战 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html">Week 1</a><a href="../week2/day8.html"  class='active'>Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="../week1/day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="../week1/day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="../week1/day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="../week1/day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="../week1/day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="../week1/day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="../week1/day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="day9.html" class="active"><span class="dn">D9</span>物料主数据配置实战</a><a href="day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 2 · 案例模拟 / Day 9</div>
+
+<div class="hero">
+  <h1>Day 9 · 物料主数据（MDG-M）配置实战</h1>
+  <div class="sub">华灯集团场景：设计编码规范、配置CR类型、验证BRF+规则</div>
+  <div class="meta"><span class="badge">⏱ 约65分钟</span><span class="badge">🔧 配置步骤详解</span></div>
+</div>
+
+<h2 class="sec">9.1 配置任务全览</h2>
+<p class="b">今天你需要为华灯集团完成MDG-M的以下配置任务：</p>
+<div class="steps">
+  <div class="step"><strong>Task 1</strong>设计华灯物料编码规范（8位）</div>
+  <div class="step"><strong>Task 2</strong>配置MDG-M CR类型（5种场景）</div>
+  <div class="step"><strong>Task 3</strong>设计BRF+校验规则清单</div>
+  <div class="step"><strong>Task 4</strong>规划Fiori UI字段显示方案</div>
+  <div class="step"><strong>Task 5</strong>编写MDG-M UAT测试脚本</div>
+</div>
+
+<h2 class="sec">9.2 Task 1：华灯物料编码规范设计</h2>
+<h3 class="sub">9.2.1 编码结构方案</h3>
+<p class="b">根据华灯集团业务特点，你提出以下8位编码方案供客户审议：</p>
+<table class="st">
+  <tr><th>位置</th><th>位数</th><th>含义</th><th>取值范围/规则</th></tr>
+  <tr><td>第1-2位</td><td>2位字母</td><td>物料大类代码</td><td>RM=原材料 / SF=半成品 / FG=成品 / PK=包装 / SV=服务</td></tr>
+  <tr><td>第3-4位</td><td>2位数字</td><td>产品线代码</td><td>01=照明 / 02=小家电 / 03=配件 / 99=通用</td></tr>
+  <tr><td>第5-8位</td><td>4位数字</td><td>流水号（系统分配）</td><td>0001起，按物料大类+产品线独立流水</td></tr>
+</table>
+<div class="box amber"><strong>编码示例：</strong><br>
+RM01-0001 = 照明事业部原材料第1号<br>
+FG01-1520 = 照明事业部成品第1520号<br>
+SF02-0088 = 小家电事业部半成品第88号</div>
+
+<div class="box blue"><strong>配置位置（S/4HANA SPRO路径）：</strong><br>
+SPRO → Master Data Governance → General Settings → Data Model → Define Entity Types<br>
+→ 找到MM（物料）数据模型 → Number Range → 按物料大类分段配置号码范围</div>
+
+<h3 class="sub">9.2.2 编码规则BRF+校验逻辑</h3>
+<p class="b">在MDG-M中，需要在BRF+中配置以下编码格式校验：</p>
+<table class="st">
+  <tr><th>规则ID</th><th>校验内容</th><th>BRF+实现方式</th><th>错误提示</th></tr>
+  <tr><td>MATCD-001</td><td>编码第1-2位必须是有效物料大类代码</td><td>Decision Table（判断表）：列出有效值RM/SF/FG/PK/SV</td><td>"物料大类代码无效，有效值：RM/SF/FG/PK/SV"</td></tr>
+  <tr><td>MATCD-002</td><td>编码第3-4位必须是有效产品线代码</td><td>Decision Table：01/02/03/99</td><td>"产品线代码无效，有效值：01/02/03/99"</td></tr>
+  <tr><td>MATCD-003</td><td>物料类型与编码前缀必须匹配</td><td>Condition：IF MATART=ROH THEN CODE[1:2]=RM</td><td>"物料类型与编码前缀不匹配"</td></tr>
+  <tr><td>MATCD-004</td><td>编码全局唯一性（重复检查）</td><td>Function Call → 调用MDG重复检查函数</td><td>"该编码已存在，请检查是否重复申请"</td></tr>
+</table>
+
+<h2 class="sec">9.3 Task 2：MDG-M CR类型配置清单</h2>
+<p class="b">以下是华灯集团5种Change Request类型的完整配置规格：</p>
+<table class="st">
+  <tr><th>CR类型</th><th>内部代码</th><th>适用场景</th><th>工作流步骤</th><th>平均处理时长SLA</th></tr>
+  <tr><td>新建物料（全视图）</td><td>HLD_MATCREATE</td><td>完整新建物料，含所有视图</td><td>初审（1天）→ Owner审批（2天）→ 激活</td><td>3个工作日</td></tr>
+  <tr><td>新建物料（基础视图）</td><td>HLD_MATCREATE_BASIC</td><td>仅基本数据+描述，后续补全视图</td><td>Owner审批（2天）→ 激活</td><td>2个工作日</td></tr>
+  <tr><td>修改物料关键字段</td><td>HLD_MATCHANGE_KEY</td><td>变更物料类型/计量单位/基本UoM</td><td>初审→ Owner审批 → 数智化部负责人确认 → 激活</td><td>4个工作日</td></tr>
+  <tr><td>修改物料非关键字段</td><td>HLD_MATCHANGE_MINOR</td><td>更新描述/采购员组/重量体积等</td><td>Owner审批（1天）→ 激活</td><td>1个工作日</td></tr>
+  <tr><td>物料停用</td><td>HLD_MATDISCONT</td><td>物料停产停用</td><td>初审（库存/订单检查）→ Owner审批 → 激活停用标记</td><td>3个工作日</td></tr>
+</table>
+
+<h3 class="sub">SPRO配置路径</h3>
+<div class="box blue"><strong>CR类型配置位置：</strong><br>
+SPRO → MDG → General Settings → Process Modeling → Change Requests → <br>
+→ Define Change Request Types<br>
+→ Configure Change Request Step Types<br>
+→ Assign Business Activities to Change Request Types</div>
+
+<h2 class="sec">9.4 Task 3：物料MDG-M Fiori UI字段规划</h2>
+<p class="b">物料主数据视图众多，必须规划哪些视图/字段在MDG-M中显示，避免界面过于复杂：</p>
+<table class="st">
+  <tr><th>Tab（页签）</th><th>对应视图</th><th>是否在MDG-M中显示</th><th>原因</th></tr>
+  <tr><td>基本数据</td><td>物料类型/计量单位/物料组</td><td>✅ 必须</td><td>创建必填</td></tr>
+  <tr><td>描述</td><td>中文/英文描述</td><td>✅ 必须</td><td>命名规范校验</td></tr>
+  <tr><td>MRP</td><td>MRP类型/批量大小/安全库存</td><td>✅ 建议保留</td><td>供应链Owner需维护</td></tr>
+  <tr><td>采购</td><td>采购组/供应商物料号</td><td>✅ 建议保留</td><td>采购Owner需维护</td></tr>
+  <tr><td>销售</td><td>销售组织数据</td><td>✅ 建议保留</td><td>销售Owner需维护</td></tr>
+  <tr><td>会计</td><td>利润中心（必填！）/评估类</td><td>✅ 必须，利润中心必填</td><td>S/4H强制要求</td></tr>
+  <tr><td>工厂/储存</td><td>存储条件/重量体积</td><td>⚡ 可选</td><td>仓库管理员自行维护</td></tr>
+  <tr><td>质量</td><td>检验类型/采购质量</td><td>⚡ 可选</td><td>QM模块上线时启用</td></tr>
+</table>
+
+<h2 class="sec">9.5 Task 4：MDG-M UAT测试脚本</h2>
+<p class="b">以下是UAT阶段需要验证的MDG-M核心测试场景：</p>
+<table class="st">
+  <tr><th>测试场景ID</th><th>测试描述</th><th>预期结果</th><th>验收人</th></tr>
+  <tr><td>MDG-M-TC001</td><td>业务用户通过Fiori发起"新建成品FG"CR，填写所有必填字段</td><td>CR创建成功，进入初审步骤，发送通知给技术管理员</td><td>MDG顾问 + 业务代表</td></tr>
+  <tr><td>MDG-M-TC002</td><td>利润中心字段留空，尝试提交CR</td><td>系统提示错误"利润中心为必填项"，无法提交</td><td>MDG顾问</td></tr>
+  <tr><td>MDG-M-TC003</td><td>输入编码"XX01-0001"（物料大类无效），尝试提交</td><td>BRF+校验失败，提示"物料大类代码无效"</td><td>MDG顾问</td></tr>
+  <tr><td>MDG-M-TC004</td><td>审批人将CR退回给申请人（Revision），申请人修改后重新提交</td><td>CR状态变为Revision，申请人可编辑，修改后重新进入工作流</td><td>业务代表</td></tr>
+  <tr><td>MDG-M-TC005</td><td>Owner审批通过后，检查物料是否出现在MARA表</td><td>激活成功，SE16N查询MARA可见新物料记录</td><td>技术顾问</td></tr>
+  <tr><td>MDG-M-TC006</td><td>FZ40（越南）工厂新建物料的CR，路由到越南工厂Owner</td><td>审批邮件发送到越南工厂的业务Owner SAP收件箱</td><td>MDG顾问 + 越南Owner</td></tr>
+</table>
+
+<div class="quiz-wrap" id="q2d9"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. 华灯集团MDG-M物料编码规则中，"FG02-0155"代表什么意思？</div><label><input type="radio" name="qq2d90" value="0">原材料/照明/第155号</label><label><input type="radio" name="qq2d90" value="1">成品/小家电/第155号</label><label><input type="radio" name="qq2d90" value="2">半成品/照明/第155号</label><label><input type="radio" name="qq2d90" value="3">包装材料/通用/第155号</label><div class="explain">✅ 解析：FG=成品（Finished Goods），02=小家电产品线，0155=流水号。根据编码规则：RM=原材料，FG=成品，SF=半成品，PK=包装；01=照明，02=小家电。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. BRF+规则MATCD-003（物料类型与编码前缀匹配）的作用是防止什么问题？</div><label><input type="radio" name="qq2d91" value="0">防止重复编码</label><label><input type="radio" name="qq2d91" value="1">防止物料类型=ROH但编码却用了FG前缀（类型与编码语义不一致）</label><label><input type="radio" name="qq2d91" value="2">防止利润中心为空</label><label><input type="radio" name="qq2d91" value="3">防止超出号码范围</label><div class="explain">✅ 解析：如果ROH（原材料）的物料用了FG（成品）的编码前缀，会造成编码含义混乱，导致报表统计错误。BRF+强制校验类型与前缀的一致性。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. 物料停用CR类型（HLD_MATDISCONT）中，"初审"步骤的主要目的是什么？</div><label><input type="radio" name="qq2d92" value="0">检查物料描述是否规范</label><label><input type="radio" name="qq2d92" value="1">检查是否有未结采购订单/销售订单/未清库存（停用前提条件）</label><label><input type="radio" name="qq2d92" value="2">检查编码是否唯一</label><label><input type="radio" name="qq2d92" value="3">通知相关部门</label><div class="explain">✅ 解析：物料停用前必须检查：①有无未结PO/SO；②库存是否为零；③有无正在使用的BOM引用。这些都是停用前置条件，必须在初审步骤由系统或管理员确认。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. UAT测试场景MDG-M-TC002的目的是验证什么？</div><label><input type="radio" name="qq2d93" value="0">验证新建物料工作流是否正常</label><label><input type="radio" name="qq2d93" value="1">验证利润中心必填的BRF+校验规则是否有效拦截空值提交</label><label><input type="radio" name="qq2d93" value="2">验证编码格式校验</label><label><input type="radio" name="qq2d93" value="3">验证多工厂路由</label><div class="explain">✅ 解析：TC002专门测试：利润中心为空时，BRF+是否能正确拦截并报错。这验证了S/4HANA最重要的数据质量规则之一。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 以下哪个SPRO路径用于配置MDG-M的Change Request类型？</div><label><input type="radio" name="qq2d94" value="0">SPRO → FI → GL Account → Settings</label><label><input type="radio" name="qq2d94" value="1">SPRO → MDG → General Settings → Process Modeling → Change Requests → Define Change Request Types</label><label><input type="radio" name="qq2d94" value="2">SE38 → 运行MDG_CR_TYPE报表</label><label><input type="radio" name="qq2d94" value="3">MM01直接配置</label><div class="explain">✅ 解析：MDG的CR类型配置路径：SPRO → Master Data Governance → General Settings → Process Modeling → Change Requests → Define Change Request Types。这是MDG配置的标准入口。</div></div><button class="qbtn" onclick="submitQuiz('q2d9')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day8.html">← Day 8</a><div style="flex:1"></div><a href="day10.html">Day 10 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

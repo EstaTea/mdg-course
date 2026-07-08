@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 5 · MDG-G财务主数据 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html"  class='active'>Week 1</a><a href="../week2/day8.html">Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="day5.html" class="active"><span class="dn">D5</span>MDG-G财务主数据</a><a href="day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="../week2/day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="../week2/day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="../week2/day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="../week2/day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="../week2/day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 1 · 理论学习 / Day 5</div>
+
+<div class="hero">
+  <h1>Day 5 · MDG-G · 财务主数据治理</h1>
+  <div class="sub">科目表、成本中心、利润中心的MDG-G配置与集团财务管控</div>
+  <div class="meta"><span class="badge">⏱ 约50分钟</span><span class="badge">📊 财务向</span></div>
+</div>
+
+<h2 class="sec">5.1 MDG-G的管辖范围</h2>
+<p class="b">MDG-G（Financials）负责管理SAP财务会计与管理会计的基础主数据：</p>
+<table class="st">
+  <tr><th>财务对象</th><th>SAP事务码</th><th>S/4H对应表</th><th>MDG-G管理</th></tr>
+  <tr><td>总账科目（GL Account）</td><td>FS00</td><td>SKA1/SKB1</td><td>✅</td></tr>
+  <tr><td>成本中心（Cost Center）</td><td>KS01</td><td>CSKS</td><td>✅</td></tr>
+  <tr><td>利润中心（Profit Center）</td><td>KE51</td><td>CEPC</td><td>✅</td></tr>
+  <tr><td>内部订单（Internal Order）</td><td>KO01</td><td>AUFK</td><td>✅（可选）</td></tr>
+  <tr><td>WBS元素</td><td>CJ01</td><td>PRPS</td><td>✅（项目会计）</td></tr>
+  <tr><td>成本中心层级</td><td>OKEON</td><td>SETHEADER</td><td>✅（Hierarchy）</td></tr>
+</table>
+
+<h2 class="sec">5.2 统一科目表（COA）——集团财务的核心</h2>
+<p class="b">佛照有19家法人，历史上各自维护科目表，导致集团合并报表工作量巨大。MDG-G的核心任务之一是建立<strong>统一科目表（Unified Chart of Accounts）</strong>。</p>
+<div class="steps">
+  <div class="step"><strong>第一步</strong>设计集团统一科目表（6位数字）</div>
+  <div class="step"><strong>第二步</strong>各法人差异科目映射分析</div>
+  <div class="step"><strong>第三步</strong>MDG-G配置科目创建/修改审批流</div>
+  <div class="step"><strong>第四步</strong>各法人新增科目必须通过MDG申请</div>
+</div>
+<div class="box amber"><strong>集团管控规则：</strong>各法人不得自行在SAP中直接创建新科目（通过权限控制实现），所有科目变更必须通过MDG-G工作流，由集团财务部审批。</div>
+
+<h2 class="sec">5.3 成本中心层级设计</h2>
+<p class="b">成本中心（Cost Center）通常按组织层级组织成树形结构：</p>
+<table class="st">
+  <tr><th>层级</th><th>示例</th><th>说明</th></tr>
+  <tr><td>L1 集团</td><td>FSL_GROUP</td><td>集团顶层，汇总所有法人</td></tr>
+  <tr><td>L2 事业部</td><td>FSL_LIGHTING / FSL_LED</td><td>按业务线分组</td></tr>
+  <tr><td>L3 法人公司</td><td>FZ10_FOSHAN / FZ40_THAI</td><td>按法人分组</td></tr>
+  <tr><td>L4 职能部门</td><td>FZ10_MANUFACTURING / FZ10_SALES</td><td>最细粒度，对应实际部门</td></tr>
+</table>
+<p class="b">MDG-G支持<strong>Hierarchy（层级维护）</strong>功能，可以在MDG Fiori界面中拖拽调整层级结构，并通过工作流审批层级变更。</p>
+
+<h2 class="sec">5.4 利润中心——S/4HANA必须100%分配</h2>
+<p class="b">这是MDG-G在S/4HANA项目中最关键的治理任务：</p>
+<ul class="b">
+  <li>S/4HANA Universal Journal（ACDOCA）中，每条财务凭证都需要利润中心</li>
+  <li>利润中心通过物料主数据的会计视图（Accounting 1 → Profit Center字段）自动传递</li>
+  <li>如果物料没有配置利润中心，收货/发货时会报错</li>
+  <li>MDG-G + MDG-M联动：创建物料时，会计视图的利润中心字段在MDG-M中配置为必填</li>
+</ul>
+<div class="box green"><strong>佛照验收硬指标：</strong>利润中心分配率 = 100%（在数据清洗阶段须100%完成，否则无法上线）。</div>
+
+<h2 class="sec">5.5 MDG-G CR类型设计</h2>
+<table class="st">
+  <tr><th>CR类型</th><th>场景</th><th>审批层级</th></tr>
+  <tr><td>GLACCT_CREATE</td><td>新建总账科目</td><td>技术管理员 → FI Owner → CFO审批</td></tr>
+  <tr><td>GLACCT_CHANGE</td><td>修改科目属性（科目组/税相关等）</td><td>技术管理员 → FI Owner</td></tr>
+  <tr><td>GLACCT_BLOCK</td><td>科目冻结/删除</td><td>FI Owner → CFO</td></tr>
+  <tr><td>CC_CREATE</td><td>新建成本中心</td><td>CO Owner → 数智化部</td></tr>
+  <tr><td>PC_CREATE</td><td>新建利润中心</td><td>CO Owner → 数智化部</td></tr>
+  <tr><td>HIER_CHANGE</td><td>调整成本中心/利润中心层级</td><td>CO Owner → 管理层</td></tr>
+</table>
+
+<h2 class="sec">5.6 MDG-G与集团报表（Group Reporting）的关系</h2>
+<p class="b">佛照本次实施范围包含 <strong>SAP Group Reporting</strong>（集团合并报表）。MDG-G是其数据质量的守门人：</p>
+<ul class="b">
+  <li>科目映射（Local COA → Group COA）：通过MDG-G统一管理，保证合并口径一致</li>
+  <li>Intercompany消除科目：内部往来科目需要特别的GL科目类型标识，MDG-G在科目创建时校验</li>
+  <li>成本中心/利润中心编码必须在Group Reporting的维度层级中有对应节点</li>
+</ul>
+
+<div class="quiz-wrap" id="q1d5"><h3>📝 知识测验</h3><div class="qi" data-answer="2"><div class="qt">Q1. MDG-G主要管理哪类主数据？</div><label><input type="radio" name="qq1d50" value="0">物料和BOM</label><label><input type="radio" name="qq1d50" value="1">业务伙伴（客户/供应商）</label><label><input type="radio" name="qq1d50" value="2">总账科目、成本中心、利润中心等财务主数据</label><label><input type="radio" name="qq1d50" value="3">生产工单和工艺路线</label><div class="explain">✅ 解析：MDG-G（Financials）专门管理财务类主数据：GL科目、成本中心、利润中心、WBS、内部订单等。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. S/4HANA的Universal Journal（ACDOCA）为何强制要求利润中心？</div><label><input type="radio" name="qq1d51" value="0">利润中心是SAP的强制规范，ECC也一样</label><label><input type="radio" name="qq1d51" value="1">ACDOCA是统一的财务凭证表，每条记录都需要完整的管理会计维度（利润中心）</label><label><input type="radio" name="qq1d51" value="2">利润中心控制用户权限</label><label><input type="radio" name="qq1d51" value="3">利润中心影响增值税计算</label><div class="explain">✅ 解析：S/4HANA用ACDOCA统一存储财务+管理会计凭证，不再有独立的CO-PA凭证。因此每条凭证都需要利润中心维度，否则无法生成管理报告。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. 集团统一科目表（Unified COA）的主要作用是什么？</div><label><input type="radio" name="qq1d52" value="0">减少科目数量</label><label><input type="radio" name="qq1d52" value="1">确保各法人账务可以直接合并，消除口径差异</label><label><input type="radio" name="qq1d52" value="2">提高系统性能</label><label><input type="radio" name="qq1d52" value="3">强制各法人使用相同会计准则</label><div class="explain">✅ 解析：统一COA确保19家法人的财务数据使用相同的科目框架，这是集团合并报表的前提——同一业务在不同法人用同一个科目编码。</div></div><div class="qi" data-answer="1"><div class="qt">Q4. MDG-G的Hierarchy功能主要用于什么？</div><label><input type="radio" name="qq1d53" value="0">管理物料BOM层级</label><label><input type="radio" name="qq1d53" value="1">维护成本中心/利润中心的树形层级结构</label><label><input type="radio" name="qq1d53" value="2">控制用户登录权限层级</label><label><input type="radio" name="qq1d53" value="3">管理采购审批层级</label><div class="explain">✅ 解析：MDG-G的Hierarchy功能专门用于维护成本中心标准层级和利润中心标准层级的树形结构，支持通过Fiori界面拖拽调整，并走审批流程。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 为防止各法人随意在SAP中创建新科目，除MDG工作流外还需要什么措施？</div><label><input type="radio" name="qq1d54" value="0">给所有用户发通知邮件</label><label><input type="radio" name="qq1d54" value="1">通过SAP权限控制（Authorization Object）限制直接在FS00事务码创建科目</label><label><input type="radio" name="qq1d54" value="2">设置系统维护窗口</label><label><input type="radio" name="qq1d54" value="3">在ERP中设置密码保护</label><div class="explain">✅ 解析：MDG治理需要配合权限控制——收回业务用户直接使用FS00/KS01等创建主数据的权限，强制所有创建必须通过MDG工作流。制度+技术双重保障。</div></div><button class="qbtn" onclick="submitQuiz('q1d5')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day4.html">← Day 4</a><div style="flex:1"></div><a href="day6.html">Day 6 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

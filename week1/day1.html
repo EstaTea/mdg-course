@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 1 · 什么是MDG？ · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html"  class='active'>Week 1</a><a href="../week2/day8.html">Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="day1.html" class="active"><span class="dn">D1</span>什么是MDG？</a><a href="day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="day4.html" class=""><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="../week2/day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="../week2/day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="../week2/day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="../week2/day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="../week2/day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 1 · 理论学习 / Day 1</div>
+
+<div class="hero">
+  <h1>Day 1 · 什么是SAP MDG？</h1>
+  <div class="sub">从主数据问题的根源说起，搞清楚MDG解决什么、不解决什么</div>
+  <div class="meta"><span class="badge">⏱ 约50分钟</span><span class="badge">📖 理论 + 测验</span></div>
+</div>
+
+<h2 class="sec">1.1 为什么需要主数据治理？</h2>
+<p class="b">在传统SAP ECC环境里，物料编码由各个工厂自行维护——同一个LED灯芯，佛山工厂叫"MAT-001"，泰国工厂叫"FZ40-LED-9W"，总公司财务系统里压根没有这条记录。这类问题统称<strong>主数据孤岛</strong>。</p>
+<p class="b">典型问题场景：</p>
+<ul class="b">
+  <li>MRP计划错误：同一物料被系统识别为两种，导致重复采购</li>
+  <li>合并报表失败：各法人利润中心编码不一致，集团报表对不上</li>
+  <li>客户重复：同一个经销商在不同销售组织有3条记录，信用额度管控失效</li>
+  <li>上线延期：S/4HANA上线前数据清洗发现70%物料缺利润中心，延期2个月</li>
+</ul>
+<div class="box amber"><strong>核心痛点：</strong>主数据质量问题不是技术问题，而是<strong>治理缺失问题</strong>——没有统一标准、没有审批流程、没有Owner责任机制。</div>
+
+<h2 class="sec">1.2 MDG是什么？</h2>
+<p class="b"><strong>SAP Master Data Governance（MDG）</strong>是SAP内嵌于S/4HANA（或独立Hub部署）的主数据治理应用，提供：</p>
+<table class="st">
+  <tr><th>能力维度</th><th>MDG具体提供</th><th>解决的问题</th></tr>
+  <tr><td>集中管控</td><td>统一的主数据创建/变更申请入口（Fiori UI）</td><td>消除直接维护绕过审批</td></tr>
+  <tr><td>审批工作流</td><td>BRF+驱动的多步骤审批流</td><td>确保每条主数据有业务Owner把关</td></tr>
+  <tr><td>数据模型</td><td>可扩展的Staging Area（暂存区）</td><td>数据在审批通过前不进Active区</td></tr>
+  <tr><td>数据质量</td><td>内置校验规则（BRF+）</td><td>创建时拦截不符合规范的数据</td></tr>
+  <tr><td>数据分发</td><td>DRF（数据复制框架）</td><td>将治理后的主数据推送至各接收系统</td></tr>
+  <tr><td>报告</td><td>数据质量仪表板（SAP Analytics Cloud可选）</td><td>可视化质量KPI</td></tr>
+</table>
+
+<h2 class="sec">1.3 MDG vs MDM：常见混淆</h2>
+<p class="b">很多人把MDG和"主数据管理（MDM）"混淆。区分如下：</p>
+<table class="st">
+  <tr><th>维度</th><th>MDM（概念）</th><th>SAP MDG（产品）</th></tr>
+  <tr><td>是什么</td><td>一套管理实践方法论</td><td>SAP的一款具体应用软件</td></tr>
+  <tr><td>适用范围</td><td>任何系统</td><td>SAP生态（S/4HANA为核心）</td></tr>
+  <tr><td>技术实现</td><td>与技术无关</td><td>基于SAP ABAP/Fiori/BRF+</td></tr>
+  <tr><td>部署方式</td><td>N/A</td><td>Co-Deploy（嵌入S/4H）或独立Hub</td></tr>
+</table>
+<div class="box blue"><strong>记住：</strong>MDG是SAP落实MDM理念的工具产品，是"道"（MDM方法论）与"器"（MDG软件）的关系。</div>
+
+<h2 class="sec">1.4 MDG的数据域</h2>
+<p class="b">MDG按主数据类型分为若干"数据域（Domain）"，每个域有独立的数据模型和配置：</p>
+<table class="st">
+  <tr><th>域</th><th>全称</th><th>管理对象</th><th>对应SAP模块</th></tr>
+  <tr><td><strong>MDG-M</strong></td><td>Material</td><td>物料主数据、BOM（可选）</td><td>MM/PP</td></tr>
+  <tr><td><strong>MDG-BP</strong></td><td>Business Partner</td><td>客户、供应商（统一为BP）</td><td>SD/MM/FI</td></tr>
+  <tr><td><strong>MDG-G</strong></td><td>Financials</td><td>GL科目、成本中心、利润中心、WBS</td><td>FI/CO</td></tr>
+  <tr><td><strong>MDG-CF</strong></td><td>Custom Objects</td><td>自定义业务对象（如工厂、汇率）</td><td>灵活定义</td></tr>
+</table>
+<div class="box green"><strong>佛照项目提示：</strong>本次项目上线 MDG-M + MDG-BP + MDG-G 三个域，覆盖全部19家法人。MDG-CF视需求后期评估。</div>
+
+<h2 class="sec">1.5 MDG生命周期：一条主数据是如何诞生的？</h2>
+<div class="steps">
+  <div class="step"><strong>1. 申请</strong>业务人员在Fiori发起Change Request（变更请求）</div>
+  <div class="step"><strong>2. 暂存</strong>数据进入Staging Area（待审批，不影响生产）</div>
+  <div class="step"><strong>3. 校验</strong>BRF+规则自动检查（必填字段、编码格式）</div>
+  <div class="step"><strong>4. 审批</strong>工作流推送审批人（业务Owner签字）</div>
+  <div class="step"><strong>5. 激活</strong>审批通过→数据写入Active Area</div>
+  <div class="step"><strong>6. 分发</strong>DRF将主数据推送到各目标系统（S/4H各工厂）</div>
+</div>
+
+<div class="quiz-wrap" id="q1d1"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. MDG的Staging Area（暂存区）的作用是什么？</div><label><input type="radio" name="qq1d10" value="0">永久存储主数据的地方</label><label><input type="radio" name="qq1d10" value="1">主数据审批前的临时区，审批通过才写入Active</label><label><input type="radio" name="qq1d10" value="2">SAP数据库的备份区</label><label><input type="radio" name="qq1d10" value="3">仅用于存储历史数据</label><div class="explain">✅ 解析：Staging Area是MDG的核心设计——数据在通过审批工作流前只存在于暂存区，不影响生产业务系统。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. 以下哪个说法正确描述了MDG-M的范围？</div><label><input type="radio" name="qq1d11" value="0">MDG-M只管理物料编码，不涉及BOM</label><label><input type="radio" name="qq1d11" value="1">MDG-M管理物料主数据，BOM维护是可选扩展</label><label><input type="radio" name="qq1d11" value="2">MDG-M是财务主数据域</label><label><input type="radio" name="qq1d11" value="3">MDG-M和MDG-BP功能完全相同</label><div class="explain">✅ 解析：MDG-M的核心是物料主数据，BOM可以作为可选扩展纳入MDG管理。财务主数据由MDG-G负责。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. MDG与MDM的本质区别是什么？</div><label><input type="radio" name="qq1d12" value="0">MDG是方法论，MDM是SAP产品</label><label><input type="radio" name="qq1d12" value="1">MDM是方法论，MDG是SAP落地工具</label><label><input type="radio" name="qq1d12" value="2">两者没有区别，是同义词</label><label><input type="radio" name="qq1d12" value="3">MDG只能用于S/4HANA Cloud</label><div class="explain">✅ 解析：MDM（Master Data Management）是一套管理实践方法论，与技术无关；MDG是SAP提供的落地工具产品，实现MDM理念。</div></div><div class="qi" data-answer="3"><div class="qt">Q4. 在S/4HANA Greenfield项目中，数据迁移准确率的要求是？</div><label><input type="radio" name="qq1d13" value="0">≥95%即可</label><label><input type="radio" name="qq1d13" value="1">≥99%</label><label><input type="radio" name="qq1d13" value="2">≥90%</label><label><input type="radio" name="qq1d13" value="3">100%（静态主数据）</label><div class="explain">✅ 解析：招标文件明确：静态数据（主数据）迁移准确率要求100%；财务期初账账相符、账实相符。这是MDG治理工作的终极验收标准。</div></div><div class="qi" data-answer="3"><div class="qt">Q5. 以下哪项不是MDG的核心能力？</div><label><input type="radio" name="qq1d14" value="0">审批工作流</label><label><input type="radio" name="qq1d14" value="1">数据质量规则校验</label><label><input type="radio" name="qq1d14" value="2">数据复制分发</label><label><input type="radio" name="qq1d14" value="3">ERP系统开发（ABAP二开）</label><div class="explain">✅ 解析：MDG的核心能力是治理（申请/审批/校验/分发），不负责ERP系统的二次开发。ABAP开发是SAP顾问的其他技能范畴。</div></div><button class="qbtn" onclick="submitQuiz('q1d1')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><span></span><div style="flex:1"></div><a href="day2.html">Day 2 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

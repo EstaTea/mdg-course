@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 4 · MDG-BP业务伙伴 · SAP MDG学习营</title>
+<style>
+:root{--navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;--steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;--r:8px;--shadow:0 2px 12px rgba(0,94,184,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:#fff;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:250px;min-width:250px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .wk{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 18px 4px}
+.sidebar a{display:flex;align-items:center;gap:9px;color:var(--pale);text-decoration:none;padding:9px 18px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.28);border-left-color:var(--primary);color:#fff}
+.sidebar .dn{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+.main{flex:1;padding:32px 40px;max-width:900px}
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 55%,var(--primary) 100%);border-radius:var(--r);padding:36px 40px 28px;color:#fff;margin-bottom:28px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:24px;margin-bottom:8px;line-height:1.35}
+.hero .sub{color:var(--pale);font-size:13.5px;max-width:600px}
+.hero .meta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+.bc{font-size:12px;color:var(--muted);margin-bottom:18px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+h2.sec{font-size:19px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 14px}
+h3.sub{font-size:14.5px;color:var(--primary);margin:18px 0 8px;font-weight:700}
+p.b{font-size:14px;color:var(--text2);margin-bottom:11px;line-height:1.78}
+ul.b{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.8}
+.box{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.72}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.steps{display:flex;gap:0;margin:18px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:13px 16px;font-size:13px;text-align:center;flex:1;min-width:110px;position:relative;margin-right:26px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:16px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+table.st{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.st th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.st td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.st tr:last-child td{border-bottom:none}
+table.st tr:hover td{background:var(--bg)}
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin:22px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:14px}
+.qi{margin-bottom:18px}
+.qi .qt{font-size:14px;color:var(--text);margin-bottom:9px;font-weight:600}
+.qi label{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:5px}
+.qi label:hover{background:var(--pale);border-color:var(--light)}
+.qi input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.qi label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.qi label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qi .explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:7px 11px;margin-top:5px;display:none}
+.qbtn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.qbtn:hover{background:var(--dark)}
+.qres{font-weight:700;margin-top:10px;font-size:15px;color:var(--primary)}
+.day-nav{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:9px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar a{padding:5px 10px;border-left:none;border-bottom:2px solid transparent;font-size:12px}.main{padding:18px}}
+</style>
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="../index.html">SAP <span>MDG</span> 学习营</a>
+  <nav><a href="../index.html">课程首页</a><a href="../week1/day1.html"  class='active'>Week 1</a><a href="../week2/day8.html">Week 2</a></nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="wk">第一周 · 理论学习</div><a href="day1.html" class=""><span class="dn">D1</span>什么是MDG？</a><a href="day2.html" class=""><span class="dn">D2</span>MDG架构与部署</a><a href="day3.html" class=""><span class="dn">D3</span>MDG-M物料主数据</a><a href="day4.html" class="active"><span class="dn">D4</span>MDG-BP业务伙伴</a><a href="day5.html" class=""><span class="dn">D5</span>MDG-G财务主数据</a><a href="day6.html" class=""><span class="dn">D6</span>工作流与审批设计</a><a href="day7.html" class=""><span class="dn">D7</span>DRF数据复制框架</a><div class="wk">第二周 · 案例模拟</div><div class="sep"></div><a href="../week2/day8.html" class=""><span class="dn">D8</span>案例介绍与环境准备</a><a href="../week2/day9.html" class=""><span class="dn">D9</span>物料主数据配置实战</a><a href="../week2/day10.html" class=""><span class="dn">D10</span>BP主数据配置实战</a><a href="../week2/day11.html" class=""><span class="dn">D11</span>工作流配置实战</a><a href="../week2/day12.html" class=""><span class="dn">D12</span>迁移验收与项目总结</a></div>
+<div class="main">
+<div class="bc"><a href="../index.html">课程首页</a> / Week 1 · 理论学习 / Day 4</div>
+
+<div class="hero">
+  <h1>Day 4 · MDG-BP · 业务伙伴主数据</h1>
+  <div class="sub">S/4HANA的BP统一模型、客户/供应商合并策略、MDG-BP配置重点</div>
+  <div class="meta"><span class="badge">⏱ 约55分钟</span><span class="badge">🔧 S/4H特有挑战</span></div>
+</div>
+
+<h2 class="sec">4.1 S/4HANA的BP统一模型——最大变化</h2>
+<p class="b">在SAP ECC时代，客户（Customer）和供应商（Vendor）是完全独立的两套主数据，分别存储在 KNA1（客户）和 LFA1（供应商）表中。</p>
+<p class="b">S/4HANA彻底改变了这一点：<strong>所有业务伙伴（客户、供应商、联系人、员工）统一合并为 Business Partner（BP）</strong>，存储在 BUT000 主表。</p>
+<table class="st">
+  <tr><th>ECC模式</th><th>S/4HANA BP模式</th></tr>
+  <tr><td>客户主数据（KNA1）</td><td rowspan="2">Business Partner（BUT000）+ BP Role</td></tr>
+  <tr><td>供应商主数据（LFA1）</td></tr>
+  <tr><td>分别在FD01/MK01创建</td><td>统一在BP事务码创建，通过Role区分</td></tr>
+  <tr><td>同一公司在ECC可能有客户+供应商两套编码</td><td>同一公司只有一个BP编号，通过Role体现双重身份</td></tr>
+</table>
+<div class="box amber"><strong>迁移重点：</strong>ECC升级S/4HANA时，必须将所有客户和供应商迁移到BP模型。MDG-BP的使命就是管理这个统一的BP主数据域。</div>
+
+<h2 class="sec">4.2 BP Role：一个BP可以扮演多个角色</h2>
+<p class="b">BP Role是S/4HANA BP模型的核心设计，允许同一BP同时具备多个身份：</p>
+<table class="st">
+  <tr><th>BP Role</th><th>含义</th><th>对应ECC概念</th></tr>
+  <tr><td>BUP001</td><td>Business Partner（通用）</td><td>基础实体</td></tr>
+  <tr><td>FLCU00</td><td>客户基础</td><td>KNA1通用数据</td></tr>
+  <tr><td>FLCU01</td><td>公司代码层客户</td><td>KNB1</td></tr>
+  <tr><td>FLVN00</td><td>供应商基础</td><td>LFA1通用数据</td></tr>
+  <tr><td>FLVN01</td><td>采购组织层供应商</td><td>LFM1/LFM2</td></tr>
+  <tr><td>BUP002</td><td>联系人</td><td>KNA1 contact</td></tr>
+</table>
+<div class="box blue"><strong>典型场景：</strong>关联方交易中，子公司A既是集团的客户（销售给它），又是集团的供应商（从它采购）。在S/4HANA中，A只有一个BP编码，但同时具备 FLCU01 和 FLVN01 两个Role。</div>
+
+<h2 class="sec">4.3 MDG-BP 数据模型关键实体</h2>
+<table class="st">
+  <tr><th>实体</th><th>对应表</th><th>主要内容</th></tr>
+  <tr><td>BP General Data</td><td>BUT000</td><td>BP编号、名称、类型（自然人/法人）、语言、国家</td></tr>
+  <tr><td>BP Address</td><td>BUT020/ADRC</td><td>地址、邮编、城市、国家</td></tr>
+  <tr><td>BP Bank Account</td><td>BUT0BK</td><td>银行账号（付款/收款）</td></tr>
+  <tr><td>Customer Company Code</td><td>KNB1</td><td>应收账款科目、付款条款、信用组</td></tr>
+  <tr><td>Customer Sales Area</td><td>KNVV</td><td>销售组织/分销渠道条件、Incoterms</td></tr>
+  <tr><td>Vendor Company Code</td><td>LFB1</td><td>应付账款科目、付款条款</td></tr>
+  <tr><td>Vendor Purchasing Org</td><td>LFM1</td><td>采购组织数据、GR-Based IV</td></tr>
+</table>
+
+<h2 class="sec">4.4 MDG-BP CR类型设计</h2>
+<table class="st">
+  <tr><th>CR类型</th><th>场景</th><th>关键校验</th></tr>
+  <tr><td>BPCREATE_CUST</td><td>新建客户型BP</td><td>统一社会信用代码唯一性、必填税号</td></tr>
+  <tr><td>BPCREATE_VEND</td><td>新建供应商型BP</td><td>银行账号格式、供应商认证状态</td></tr>
+  <tr><td>BPCREATE_BOTH</td><td>新建双重身份BP（关联方）</td><td>关联方标识、内部往来科目</td></tr>
+  <tr><td>BPCHANGE_BANK</td><td>修改银行账号（高风险）</td><td>双人审批（防欺诈）、财务Controller必须审批</td></tr>
+  <tr><td>BPBLOCK</td><td>冻结/停用BP</td><td>未结应收/应付检查</td></tr>
+</table>
+<div class="box amber"><strong>反欺诈关键点：</strong>银行账号变更（BPCHANGE_BANK）是供应商付款欺诈的高风险环节。必须配置<strong>双人审批</strong>（申请人不能是审批人），且财务Controller必须在审批链上。</div>
+
+<h2 class="sec">4.5 ECC→S/4HANA的BP合并策略</h2>
+<p class="b">迁移时，如何将ECC的独立客户/供应商合并为BP？有两种策略：</p>
+<ul class="b">
+  <li><strong>策略一：保留原编码（推荐，统一号码段）</strong><br>
+  将ECC客户编码（如10000001）和供应商编码（如100001）映射到BP中，保持原有号码范围，业务用户无需重新记忆</li>
+  <li><strong>策略二：重新编号</strong><br>
+  Greenfield项目常用，趁机统一编码规范，但需要所有下游系统（OMS/CRM等）更新引用</li>
+</ul>
+<div class="box green"><strong>佛照建议：</strong>Greenfield项目推荐策略二（重新编号），结合MDG-BP编码规范重新设计BP号码范围（如客户10000000-19999999，供应商20000000-29999999），从根本上解决ECC遗留的编码混乱。</div>
+
+<h2 class="sec">4.6 MDG-BP 与 SAP Credit Management</h2>
+<p class="b">MDG-BP与S/4HANA信用管理深度集成：</p>
+<ul class="b">
+  <li>客户信用组（Credit Group）在MDG-BP的Company Code视图中维护</li>
+  <li>信用额度（Credit Limit）通过 SAP Credit Management（SAPLCM）维护，MDG-BP审批通过后自动触发信用档案创建</li>
+  <li>佛照痛点"销售信用管理失控"可以通过MDG-BP+信用管理组合方案解决</li>
+</ul>
+
+<div class="quiz-wrap" id="q1d4"><h3>📝 知识测验</h3><div class="qi" data-answer="1"><div class="qt">Q1. S/4HANA的BP统一模型中，"BP Role"的作用是什么？</div><label><input type="radio" name="qq1d40" value="0">区分不同公司代码的账务数据</label><label><input type="radio" name="qq1d40" value="1">允许同一BP具备多个业务身份（如既是客户又是供应商）</label><label><input type="radio" name="qq1d40" value="2">控制BP的查询权限</label><label><input type="radio" name="qq1d40" value="3">决定BP属于哪个销售区域</label><div class="explain">✅ 解析：BP Role是S/4HANA BP模型的精髓：同一个法律实体（如关联公司）只需一个BP编号，通过不同Role（FLCU01/FLVN01）体现其作为客户和供应商的双重身份。</div></div><div class="qi" data-answer="1"><div class="qt">Q2. 在MDG-BP中，银行账号变更CR类型为何需要双人审批？</div><label><input type="radio" name="qq1d41" value="0">银行账号格式验证需要两个系统</label><label><input type="radio" name="qq1d41" value="1">防止供应商付款欺诈（攻击者通过伪造银行账号变更实施转移）</label><label><input type="radio" name="qq1d41" value="2">双人审批是MDG的强制要求</label><label><input type="radio" name="qq1d41" value="3">银行接口只接受双重确认</label><div class="explain">✅ 解析：银行账号变更是供应商付款欺诈的重灾区——攻击者通过伪造"供应商"要求修改银行账号，一旦付款即损失资金。双人审批是防控这类欺诈的核心内控措施。</div></div><div class="qi" data-answer="1"><div class="qt">Q3. ECC中KNA1表存储的是什么？</div><label><input type="radio" name="qq1d42" value="0">采购订单表头</label><label><input type="radio" name="qq1d42" value="1">客户通用数据（客户主数据）</label><label><input type="radio" name="qq1d42" value="2">供应商主数据</label><label><input type="radio" name="qq1d42" value="3">物料评估数据</label><div class="explain">✅ 解析：KNA1是ECC客户主数据的通用数据表（全称：Customer Master：General Data）。S/4HANA中客户数据迁移到BP的BUT000+KNB1体系。</div></div><div class="qi" data-answer="2"><div class="qt">Q4. 以下哪个S/4HANA BP Role代表"公司代码层客户"？</div><label><input type="radio" name="qq1d43" value="0">BUP001</label><label><input type="radio" name="qq1d43" value="1">FLCU00</label><label><input type="radio" name="qq1d43" value="2">FLCU01</label><label><input type="radio" name="qq1d43" value="3">FLVN01</label><div class="explain">✅ 解析：FLCU01 = Customer（Company Code）即公司代码层的客户数据（对应ECC的KNB1表）。FLCU00是客户基础层，FLVN01是供应商采购组织层。</div></div><div class="qi" data-answer="1"><div class="qt">Q5. 佛照项目Greenfield实施时，BP编码策略推荐哪种？</div><label><input type="radio" name="qq1d44" value="0">完全沿用ECC原客户/供应商编码</label><label><input type="radio" name="qq1d44" value="1">重新设计BP号码范围，统一编码规范</label><label><input type="radio" name="qq1d44" value="2">只迁移活跃客户，供应商保留ECC</label><label><input type="radio" name="qq1d44" value="3">BP编码由系统自动生成，无需规划</label><div class="explain">✅ 解析：Greenfield是重新设计的机会。推荐趁此统一BP编码规范（如按业务类型分段），解决ECC遗留的编码混乱问题。但需确保OMS/CRM等下游系统同步更新引用。</div></div><button class="qbtn" onclick="submitQuiz('q1d4')">提交答案</button><div class="qres"></div></div>
+<div class="day-nav"><a href="day3.html">← Day 3</a><div style="flex:1"></div><a href="day5.html">Day 5 →</a></div>
+</div></div>
+<script>
+function submitQuiz(id){
+  const w=document.getElementById(id);
+  let score=0,total=0;
+  w.querySelectorAll('.qi').forEach(q=>{
+    total++;
+    const ans=parseInt(q.dataset.answer);
+    const sel=q.querySelector('input:checked');
+    const ex=q.querySelector('.explain');
+    q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const v=parseInt(sel.value);
+      const labels=q.querySelectorAll('label');
+      if(v===ans){score++;labels[ans].classList.add('correct');}
+      else{labels[v].classList.add('wrong');labels[ans].classList.add('correct');}
+    }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+    if(ex)ex.style.display='block';
+  });
+  const r=w.querySelector('.qres');
+  if(r)r.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 建议复习解析后重试');
+}
+</script>
+</body></html>

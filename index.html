@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>课程首页 · SAP MDG学习营</title>
+
+<style>
+:root{
+  --navy:#0B2D47; --dark:#1B3A6B; --primary:#005EB8;
+  --mid:#1F70C1;  --steel:#4A6FA5; --muted:#6B8CB8;
+  --light:#A8C4E0;--pale:#D0E4F7; --bg:#EBF4FF;
+  --white:#FFFFFF;--text:#0D1B2A; --text2:#2C3E50;
+  --green:#1A6B3C; --amber:#7A5200; --red:#7A1B1B;
+  --r:8px; --shadow:0 2px 12px rgba(0,94,184,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+
+/* ── Topnav ── */
+.topnav{background:var(--dark);padding:0 32px;display:flex;align-items:center;gap:24px;height:56px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav .logo{color:var(--white);font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.topnav .logo span{color:var(--light)}
+.topnav nav{display:flex;gap:4px;margin-left:auto}
+.topnav nav a{color:var(--light);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;transition:.15s}
+.topnav nav a:hover,.topnav nav a.active{background:var(--primary);color:#fff}
+
+/* ── Sidebar ── */
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:260px;min-width:260px;background:var(--dark);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar .week-label{color:var(--light);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:12px 20px 4px}
+.sidebar a{display:flex;align-items:center;gap:10px;color:var(--pale);text-decoration:none;padding:9px 20px;font-size:13px;border-left:3px solid transparent;transition:.15s}
+.sidebar a:hover{background:rgba(255,255,255,.06);border-left-color:var(--light)}
+.sidebar a.active{background:rgba(0,94,184,.25);border-left-color:var(--primary);color:#fff}
+.sidebar a .day-num{background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.sidebar a .day-num.done{background:var(--green)}
+.sidebar a .day-num.lock{background:var(--steel)}
+.sidebar .sep{height:1px;background:rgba(255,255,255,.08);margin:8px 16px}
+
+/* ── Main content ── */
+.main{flex:1;padding:32px 40px;max-width:920px}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(135deg,#003087 0%,var(--dark) 50%,var(--primary) 100%);border-radius:var(--r);padding:40px 40px 32px;color:#fff;margin-bottom:32px;border-bottom:3px solid var(--primary)}
+.hero h1{font-size:26px;margin-bottom:10px;line-height:1.3}
+.hero p{color:var(--pale);font-size:14px;max-width:640px}
+.hero .meta{display:flex;gap:16px;margin-top:20px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--pale)}
+
+/* ── Progress bar ── */
+.progress-wrap{background:var(--white);border-radius:var(--r);padding:20px 28px;box-shadow:var(--shadow);margin-bottom:28px;display:flex;align-items:center;gap:20px}
+.progress-wrap .label{font-size:13px;color:var(--text2);white-space:nowrap}
+.prog-bar{flex:1;height:8px;background:var(--pale);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:4px;transition:.4s}
+.prog-pct{font-size:13px;color:var(--primary);font-weight:700;white-space:nowrap}
+
+/* ── Card grid ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:28px}
+.card{background:var(--white);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);border-top:3px solid var(--pale);cursor:pointer;text-decoration:none;transition:.15s;display:block}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,94,184,.18);border-top-color:var(--primary)}
+.card h3{font-size:14px;color:var(--dark);margin-bottom:6px}
+.card p{font-size:12px;color:var(--text2);line-height:1.5}
+.card .tag{display:inline-block;background:var(--pale);color:var(--primary);font-size:11px;padding:2px 8px;border-radius:10px;margin-top:8px;font-weight:600}
+.card.done{border-top-color:var(--primary)}
+.card.done .tag{background:#d1fae5;color:#065f46}
+
+/* ── Section headings ── */
+h2.sec{font-size:20px;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 16px}
+h3.sub{font-size:15px;color:var(--primary);margin:20px 0 8px}
+p.body{font-size:14px;color:var(--text2);margin-bottom:12px;line-height:1.75}
+ul.body-ul{font-size:14px;color:var(--text2);padding-left:20px;margin-bottom:12px;line-height:1.75}
+
+/* ── Info box ── */
+.box{border-radius:var(--r);padding:16px 20px;margin-bottom:16px;font-size:13.5px;line-height:1.7}
+.box.blue{background:var(--pale);border-left:4px solid var(--primary);color:var(--text)}
+.box.green{background:#d1fae5;border-left:4px solid #059669;color:#064e3b}
+.box.amber{background:#fef3c7;border-left:4px solid #d97706;color:#78350f}
+.box.red{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d}
+.box strong{font-weight:700}
+
+/* ── Quiz ── */
+.quiz-wrap{background:var(--white);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);margin:24px 0}
+.quiz-wrap h3{font-size:15px;color:var(--dark);margin-bottom:16px}
+.q-item{margin-bottom:20px}
+.q-item .q-text{font-size:14px;color:var(--text);margin-bottom:10px;font-weight:600}
+.q-options label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:13.5px;color:var(--text2);border:1.5px solid transparent;transition:.15s;margin-bottom:6px}
+.q-options label:hover{background:var(--pale);border-color:var(--light)}
+.q-options input[type=radio]{margin-top:2px;accent-color:var(--primary)}
+.q-options label.correct{background:#d1fae5;border-color:#059669;color:#064e3b}
+.q-options label.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.q-explain{font-size:13px;color:var(--text2);background:var(--pale);border-radius:4px;padding:8px 12px;margin-top:6px;display:none}
+.quiz-btn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:10px 24px;font-size:14px;cursor:pointer;margin-top:4px;font-family:inherit;transition:.15s}
+.quiz-btn:hover{background:var(--dark)}
+.quiz-result{font-weight:700;margin-top:12px;font-size:15px;color:var(--primary)}
+
+/* ── Step diagram ── */
+.steps{display:flex;gap:0;margin:20px 0;flex-wrap:wrap}
+.step{background:var(--pale);border-radius:var(--r);padding:14px 18px;font-size:13px;text-align:center;flex:1;min-width:120px;position:relative;margin-right:24px;color:var(--text)}
+.step:last-child{margin-right:0}
+.step::after{content:"→";position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:18px;font-weight:700}
+.step:last-child::after{display:none}
+.step strong{display:block;color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+
+/* ── Table ── */
+table.styled{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0 20px;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table.styled th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left}
+table.styled td{padding:9px 14px;border-bottom:1px solid var(--pale);color:var(--text2)}
+table.styled tr:last-child td{border-bottom:none}
+table.styled tr:hover td{background:var(--bg)}
+
+/* ── Tag pill ── */
+.pill{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700}
+.pill.blue{background:var(--pale);color:var(--primary)}
+.pill.green{background:#d1fae5;color:#065f46}
+.pill.amber{background:#fef3c7;color:#92400e}
+
+/* ── Breadcrumb ── */
+.bc{font-size:12px;color:var(--muted);margin-bottom:20px}
+.bc a{color:var(--muted);text-decoration:none}.bc a:hover{color:var(--primary)}
+
+/* ── Day nav ── */
+.day-nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:20px;border-top:1px solid var(--pale)}
+.day-nav a{background:var(--primary);color:#fff;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:13px;transition:.15s}
+.day-nav a:hover{background:var(--dark)}
+.day-nav .spacer{flex:1}
+
+/* ── Complete button ── */
+.complete-btn{background:#059669;color:#fff;border:none;border-radius:6px;padding:12px 28px;font-size:14px;cursor:pointer;margin-top:24px;font-family:inherit;transition:.15s;display:flex;align-items:center;gap:8px}
+.complete-btn:hover{background:#065f46}
+.complete-btn.done-state{background:var(--steel);cursor:default}
+
+@media(max-width:800px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:static;display:flex;flex-wrap:wrap;gap:4px;padding:12px}
+  .sidebar a{padding:6px 12px;border-left:none;border-bottom:2px solid transparent;font-size:12px}
+  .main{padding:20px}
+}
+</style>
+
+</head><body>
+<nav class="topnav">
+  <a class="logo" href="index.html">SAP <span>MDG</span> 学习营</a>
+  <nav>
+    <a href="index.html">课程首页</a>
+    <a href="week1/day1.html">Week 1</a>
+    <a href="week2/day8.html">Week 2</a>
+  </nav>
+</nav>
+<div class="layout">
+<div class="sidebar"><div class="week-label">第一周：理论学习（7天）</div><a href="week1/day1.html" class="" data-day="1"><span class="day-num">D1</span>什么是MDG？</a><a href="week1/day2.html" class="" data-day="2"><span class="day-num">D2</span>MDG架构与部署</a><a href="week1/day3.html" class="" data-day="3"><span class="day-num">D3</span>MDG-M物料主数据</a><a href="week1/day4.html" class="" data-day="4"><span class="day-num">D4</span>MDG-BP业务伙伴</a><a href="week1/day5.html" class="" data-day="5"><span class="day-num">D5</span>MDG-G财务主数据</a><a href="week1/day6.html" class="" data-day="6"><span class="day-num">D6</span>工作流与审批设计</a><a href="week1/day7.html" class="" data-day="7"><span class="day-num">D7</span>DRF数据复制框架</a><div class="week-label">第二周：案例模拟（5天）</div><div class="sep"></div><a href="week2/day8.html" class="" data-day="8"><span class="day-num">D8</span>案例介绍与环境准备</a><a href="week2/day9.html" class="" data-day="9"><span class="day-num">D9</span>物料主数据配置实战</a><a href="week2/day10.html" class="" data-day="10"><span class="day-num">D10</span>BP主数据配置实战</a><a href="week2/day11.html" class="" data-day="11"><span class="day-num">D11</span>工作流配置实战</a><a href="week2/day12.html" class="" data-day="12"><span class="day-num">D12</span>迁移验收与总结</a></div>
+<div class="main">
+
+<div class="hero">
+  <h1>SAP MDG 两周速成营</h1>
+  <p>从零掌握 Master Data Governance：第一周系统学习理论，第二周完整模拟真实项目——全程面向佛山照明S/4HANA实施场景设计。</p>
+  <div class="meta">
+    <span class="badge">📅 共12天 · 每天45-60分钟</span>
+    <span class="badge">🎯 面向SAP咨询顾问</span>
+    <span class="badge">🔧 实战场景：制造业主数据治理</span>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <span class="label">总学习进度</span>
+  <div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div>
+  <span class="prog-pct">0%</span>
+</div>
+
+<h2 class="sec">Week 1 · 理论学习（7天）</h2>
+<div class="card-grid">
+  <a class="card" href="week1/day1.html">
+    <h3>Day 1 · 什么是MDG？</h3>
+    <p>主数据问题根源、MDG定义、与MDM的区别、SAP产品定位</p>
+    <span class="tag">理论基础</span>
+  </a>
+  <a class="card" href="week1/day2.html">
+    <h3>Day 2 · MDG架构与部署</h3>
+    <p>Hub vs Co-Deploy、MDG应用层、数据模型层、UI框架</p>
+    <span class="tag">架构设计</span>
+  </a>
+  <a class="card" href="week1/day3.html">
+    <h3>Day 3 · MDG-M 物料主数据</h3>
+    <p>物料数据模型、编码规范、UI配置、变更请求类型</p>
+    <span class="tag">物料域</span>
+  </a>
+  <a class="card" href="week1/day4.html">
+    <h3>Day 4 · MDG-BP 业务伙伴</h3>
+    <p>BP统一模型、客户/供应商合并、BP角色与关系</p>
+    <span class="tag">BP域</span>
+  </a>
+  <a class="card" href="week1/day5.html">
+    <h3>Day 5 · MDG-G 财务主数据</h3>
+    <p>科目表、成本中心、利润中心、层级维护</p>
+    <span class="tag">财务域</span>
+  </a>
+  <a class="card" href="week1/day6.html">
+    <h3>Day 6 · 工作流与审批设计</h3>
+    <p>BRF+、工作流步骤、通知、SLA超时处理</p>
+    <span class="tag">流程设计</span>
+  </a>
+  <a class="card" href="week1/day7.html">
+    <h3>Day 7 · DRF数据复制框架</h3>
+    <p>主数据如何从Hub分发到S/4HANA，Filter与Selective Replication</p>
+    <span class="tag">集成</span>
+  </a>
+</div>
+
+<h2 class="sec">Week 2 · 案例模拟（5天）——基于真实项目</h2>
+<div class="box amber"><strong>案例背景：</strong>某家电制造集团（8家法人、5个工厂）在S/4HANA上线前推进MDG主数据治理。你将扮演MDG顾问，完成从需求分析到UAT验收的完整项目模拟。</div>
+<div class="card-grid">
+  <a class="card" href="week2/day8.html">
+    <h3>Day 8 · 案例介绍与环境准备</h3>
+    <p>了解客户现状、梳理需求清单、规划MDG实施范围</p>
+    <span class="tag">需求分析</span>
+  </a>
+  <a class="card" href="week2/day9.html">
+    <h3>Day 9 · 物料主数据配置实战</h3>
+    <p>Data Model、UI配置、编码规则、Change Request类型定义</p>
+    <span class="tag">配置实战</span>
+  </a>
+  <a class="card" href="week2/day10.html">
+    <h3>Day 10 · BP主数据配置实战</h3>
+    <p>BP Role分配、客户/供应商合并方案、MDG-BP UI设计</p>
+    <span class="tag">配置实战</span>
+  </a>
+  <a class="card" href="week2/day11.html">
+    <h3>Day 11 · 工作流配置实战</h3>
+    <p>BRF+规则配置、审批层级设计、测试脚本编写</p>
+    <span class="tag">配置实战</span>
+  </a>
+  <a class="card" href="week2/day12.html">
+    <h3>Day 12 · 迁移验收与项目总结</h3>
+    <p>数据迁移验证、UAT测试场景执行、顾问交付总结</p>
+    <span class="tag">验收</span>
+  </a>
+</div>
+
+<div class="box blue"><strong>💡 学习建议：</strong>建议每天按序进行，每天结束时完成知识测验（每天5题）巩固记忆。Week 2 的模拟练习有配套"交付物模板"，建议边学边填写，积累到佛照项目中直接复用。</div>
+
+</div></div>
+
+<script>
+// progress tracking via localStorage (ONLY for this personal learning site, single user)
+const TOTAL_DAYS = 12;
+function getDone(){return JSON.parse(localStorage.getItem('mdg_done')||'[]')}
+function markDone(day){const d=getDone();if(!d.includes(day)){d.push(day);localStorage.setItem('mdg_done',JSON.stringify(d))}updateProgress()}
+function updateProgress(){
+  const d=getDone();
+  document.querySelectorAll('.prog-fill').forEach(el=>el.style.width=(d.length/TOTAL_DAYS*100)+'%');
+  document.querySelectorAll('.prog-pct').forEach(el=>el.textContent=Math.round(d.length/TOTAL_DAYS*100)+'%');
+  document.querySelectorAll('[data-day]').forEach(el=>{
+    const day=parseInt(el.dataset.day);
+    const num=el.querySelector('.day-num');
+    if(num){if(d.includes(day)){num.classList.add('done');num.classList.remove('lock')}else{num.classList.remove('done')}}
+  });
+}
+function setupQuiz(quizId){
+  const wrap=document.getElementById(quizId);
+  if(!wrap)return;
+  const btn=wrap.querySelector('.quiz-btn');
+  const result=wrap.querySelector('.quiz-result');
+  btn.addEventListener('click',()=>{
+    let score=0,total=0;
+    wrap.querySelectorAll('.q-item').forEach(q=>{
+      total++;
+      const ans=parseInt(q.dataset.answer);
+      const sel=q.querySelector('input:checked');
+      const explain=q.querySelector('.q-explain');
+      q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+      if(sel){
+        const chosen=parseInt(sel.value);
+        const labels=q.querySelectorAll('label');
+        if(chosen===ans){score++;labels[ans].classList.add('correct');}
+        else{labels[chosen].classList.add('wrong');labels[ans].classList.add('correct');}
+      }else{q.querySelectorAll('label')[ans].classList.add('correct');}
+      if(explain)explain.style.display='block';
+    });
+    result.textContent='得分：'+score+'/'+total+(score===total?' 🎉 全部正确！':' — 查看解析再巩固一下');
+  });
+}
+document.addEventListener('DOMContentLoaded',()=>{updateProgress();});
+</script>
+
+</body></html>
