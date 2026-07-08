@@ -102,6 +102,42 @@ table.st tr:hover td{background:var(--bg)}
 </div>
 <div class="box amber"><strong>集团管控规则：</strong>各法人不得自行在SAP中直接创建新科目（通过权限控制实现），所有科目变更必须通过MDG-G工作流，由集团财务部审批。</div>
 
+
+
+<div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">佛照集团成本中心层级设计（MDG-G Hierarchy）</p>
+  <div style="font-size:11.5px">
+    <!-- L1 -->
+    <div style="background:var(--dark);color:#fff;border-radius:7px;padding:9px 16px;text-align:center;font-weight:700;margin-bottom:6px">L1 · 集团顶层 FSL_GROUP</div>
+    <div style="display:flex;justify-content:center;gap:4px;margin-bottom:6px">
+      <div style="width:2px;height:16px;background:var(--light);margin:0 auto"></div>
+    </div>
+    <!-- L2 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:6px">
+      <div style="background:var(--primary);color:#fff;border-radius:6px;padding:7px;text-align:center;font-size:10.5px;font-weight:700">L2 · 通用照明<br>FSL_LIGHTING</div>
+      <div style="background:var(--primary);color:#fff;border-radius:6px;padding:7px;text-align:center;font-size:10.5px;font-weight:700">L2 · LED封装<br>FSL_LED</div>
+      <div style="background:var(--primary);color:#fff;border-radius:6px;padding:7px;text-align:center;font-size:10.5px;font-weight:700">L2 · 海外事业<br>FSL_INTL</div>
+    </div>
+    <!-- L3 -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:6px">
+      <div style="background:var(--pale);border-radius:5px;padding:6px;text-align:center;font-size:9.5px;color:var(--text2)">L3<br>FZ10<br>佛山主体</div>
+      <div style="background:var(--pale);border-radius:5px;padding:6px;text-align:center;font-size:9.5px;color:var(--text2)">L3<br>FZ20<br>高明工厂</div>
+      <div style="background:var(--pale);border-radius:5px;padding:6px;text-align:center;font-size:9.5px;color:var(--text2)">L3<br>国星光电<br>LED子公司</div>
+      <div style="background:#d1fae5;border-radius:5px;padding:6px;text-align:center;font-size:9.5px;color:#065f46;font-weight:700">L3<br>FZ40<br>泰国子公司</div>
+      <div style="background:#d1fae5;border-radius:5px;padding:6px;text-align:center;font-size:9.5px;color:#065f46;font-weight:700">L3<br>FZ33<br>德国子公司</div>
+    </div>
+    <!-- L4 -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+      <div style="background:var(--bg);border:1px solid var(--pale);border-radius:4px;padding:5px;text-align:center;font-size:9px;color:var(--text2)">L4 · 制造部门<br>FZ10_MFG</div>
+      <div style="background:var(--bg);border:1px solid var(--pale);border-radius:4px;padding:5px;text-align:center;font-size:9px;color:var(--text2)">L4 · 销售部门<br>FZ10_SALES</div>
+      <div style="background:var(--bg);border:1px solid var(--pale);border-radius:4px;padding:5px;text-align:center;font-size:9px;color:var(--text2)">L4 · 财务部门<br>FZ10_FIN</div>
+      <div style="background:var(--bg);border:1px solid var(--pale);border-radius:4px;padding:5px;text-align:center;font-size:9px;color:var(--text2)">L4 · 研发中心<br>FSL_R&D</div>
+    </div>
+  </div>
+  <div style="margin-top:12px;background:var(--pale);border-radius:6px;padding:8px 14px;font-size:10.5px;color:var(--text2);text-align:center">
+    MDG-G 的 Hierarchy 功能支持通过 Fiori 界面拖拽调整层级，变更须经审批工作流确认
+  </div>
+</div>
 <h2 class="sec">5.3 成本中心层级设计</h2>
 <p class="b">成本中心（Cost Center）通常按组织层级组织成树形结构：</p>
 <table class="st">

@@ -99,6 +99,52 @@ table.st tr:hover td{background:var(--bg)}
 </ul>
 <div class="box amber"><strong>重要：</strong>一个CR只能对应一个业务对象（如一条物料记录）。需要批量创建100条物料，需要100个CR，或使用MDG的批量处理功能（File Upload）。</div>
 
+
+
+<div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">Hub部署 vs Co-Deploy 架构对比</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <!-- Hub -->
+    <div style="border:2px solid var(--light);border-radius:8px;padding:16px;position:relative">
+      <div style="position:absolute;top:-11px;left:16px;background:var(--steel);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px">Hub 部署（独立系统）</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;align-items:center">
+        <div style="background:var(--dark);color:#fff;border-radius:6px;padding:8px 20px;font-size:11px;font-weight:700;text-align:center">MDG Hub 系统<br><span style="font-size:9px;font-weight:400;color:var(--light)">独立 SAP 实例</span></div>
+        <div style="display:flex;gap:6px">
+          <span style="font-size:16px">↕️</span>
+          <span style="font-size:9.5px;color:var(--muted);align-self:center">DRF 跨系统分发</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <div style="background:var(--pale);border-radius:5px;padding:6px 10px;font-size:10px;text-align:center;color:var(--text2)">S/4HANA<br>工厂A</div>
+          <div style="background:var(--pale);border-radius:5px;padding:6px 10px;font-size:10px;text-align:center;color:var(--text2)">S/4HANA<br>工厂B</div>
+          <div style="background:var(--pale);border-radius:5px;padding:6px 10px;font-size:10px;text-align:center;color:var(--text2)">非SAP<br>系统</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:10px;color:var(--text2);line-height:1.6">
+        ✅ 适合多ERP混合环境<br>✅ MDG与生产系统性能隔离<br>❌ 需要额外系统许可和服务器<br>❌ 配置复杂度高
+      </div>
+    </div>
+    <!-- Co-Deploy -->
+    <div style="border:2px solid var(--primary);border-radius:8px;padding:16px;position:relative">
+      <div style="position:absolute;top:-11px;left:16px;background:var(--primary);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px">Co-Deploy ✅ 佛照推荐</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px;align-items:center">
+        <div style="background:var(--dark);color:#fff;border-radius:6px;padding:4px 16px;font-size:10px;font-weight:700;width:100%;text-align:center">S/4HANA PCE 同一系统</div>
+        <div style="background:var(--primary);color:#fff;border-radius:5px;padding:8px;font-size:10.5px;text-align:center;width:100%">
+          <span style="font-weight:700">MDG</span>
+          <span style="font-size:9px;opacity:.8;display:block">（内嵌同系统）</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%">
+          <div style="background:var(--pale);border-radius:5px;padding:6px;font-size:10px;text-align:center;color:var(--text2)">MARA<br>（Active）</div>
+          <div style="background:#d1fae5;border-radius:5px;padding:6px;font-size:10px;text-align:center;color:#065f46">USMD*<br>（Staging）</div>
+          <div style="background:var(--pale);border-radius:5px;padding:6px;font-size:10px;text-align:center;color:var(--text2)">KNA1/LFA1<br>（Active）</div>
+          <div style="background:var(--pale);border-radius:5px;padding:6px;font-size:10px;text-align:center;color:var(--text2)">SKA1/CSKS<br>（Active）</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:10px;color:var(--text2);line-height:1.6">
+        ✅ 无需额外系统许可<br>✅ 激活即可用，DRF配置最简<br>✅ 佛照单一S/4HANA PCE最优解<br>❌ 与生产共享资源
+      </div>
+    </div>
+  </div>
+</div>
 <h2 class="sec">2.3 部署模式：Hub vs Co-Deploy</h2>
 <table class="st">
   <tr><th>维度</th><th>Hub部署（独立）</th><th>Co-Deploy（嵌入S/4HANA）</th></tr>
@@ -111,6 +157,40 @@ table.st tr:hover td{background:var(--bg)}
 </table>
 <div class="box green"><strong>佛照决策：</strong>佛照本次实施S/4HANA PCE（私有云），只有一套系统，推荐 <strong>Co-Deploy</strong> 模式，MDG直接运行在S/4HANA上，无需额外系统许可，DRF配置最简单。</div>
 
+
+
+<div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">MDG 双区隔离设计：Staging Area vs Active Area</p>
+  <div style="display:grid;grid-template-columns:1fr 48px 1fr;gap:0;align-items:center">
+    <div style="background:#fef3c7;border:2px solid #d97706;border-radius:8px;padding:16px;text-align:center">
+      <div style="font-size:14px;font-weight:800;color:#92400e;margin-bottom:8px">📋 Staging Area</div>
+      <div style="font-size:10.5px;color:#78350f;line-height:1.7;text-align:left">
+        • 存储待审批的变更请求数据<br>
+        • 对业务系统 <strong>完全不可见</strong><br>
+        • SAP 专用暂存表（USMD* 系列）<br>
+        • 审批拒绝 → 数据丢弃<br>
+        • 审批通过 → 写入 Active Area
+      </div>
+    </div>
+    <div style="text-align:center;padding:0 4px">
+      <div style="font-size:22px">→</div>
+      <div style="font-size:8.5px;color:var(--muted);margin-top:2px">审批通过<br>激活</div>
+    </div>
+    <div style="background:#d1fae5;border:2px solid #059669;border-radius:8px;padding:16px;text-align:center">
+      <div style="font-size:14px;font-weight:800;color:#065f46;margin-bottom:8px">✅ Active Area</div>
+      <div style="font-size:10.5px;color:#064e3b;line-height:1.7;text-align:left">
+        • 正式主数据，业务系统可见<br>
+        • SAP 标准主数据表（MARA / KNA1 / SKA1 等）<br>
+        • <strong>仅 MDG 激活动作</strong> 可写入<br>
+        • 一旦激活即进入业务流程<br>
+        • DRF 从此处分发到目标系统
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px;background:var(--pale);border-radius:6px;padding:8px 14px;font-size:11px;color:var(--text2);text-align:center">
+    核心价值：审批通过前，任何变更对生产业务不可见——彻底杜绝"先进系统再补审批"
+  </div>
+</div>
 <h2 class="sec">2.4 MDG Active Area vs Staging Area</h2>
 <p class="b">MDG最重要的设计思想——<strong>双区分离</strong>：</p>
 <table class="st">

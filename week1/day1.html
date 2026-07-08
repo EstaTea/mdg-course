@@ -114,6 +114,45 @@ table.st tr:hover td{background:var(--bg)}
 </table>
 <div class="box blue"><strong>记住：</strong>MDG是SAP落实MDM理念的工具产品，是"道"（MDM方法论）与"器"（MDG软件）的关系。</div>
 
+
+
+<div style="margin:20px 0 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+  <div style="background:var(--white);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border-top:3px solid var(--primary)">
+    <div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:8px">📦 MDG-M · 物料主数据</div>
+    <div style="font-size:11.5px;color:var(--text2);line-height:1.7">管理 <strong>物料主数据</strong> 和 <strong>BOM</strong><br>对应模块：MM / PP / PLM<br>佛照关键：利润中心必填、19家法人统一编码</div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <span style="background:var(--pale);color:var(--primary);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">物料编码</span>
+      <span style="background:var(--pale);color:var(--primary);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">BOM版本</span>
+      <span style="background:var(--pale);color:var(--primary);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">利润中心</span>
+    </div>
+  </div>
+  <div style="background:var(--white);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border-top:3px solid #059669">
+    <div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:8px">🤝 MDG-BP · 业务伙伴</div>
+    <div style="font-size:11.5px;color:var(--text2);line-height:1.7">统一管理 <strong>客户+供应商</strong>（S/4HANA BP模型）<br>对应模块：SD / MM / FI<br>佛照关键：关联方双重身份、银行账号反欺诈</div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <span style="background:#d1fae5;color:#065f46;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">BP Role</span>
+      <span style="background:#d1fae5;color:#065f46;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">双人审批</span>
+      <span style="background:#d1fae5;color:#065f46;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">信用管理</span>
+    </div>
+  </div>
+  <div style="background:var(--white);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border-top:3px solid #d97706">
+    <div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:8px">💰 MDG-G · 财务主数据</div>
+    <div style="font-size:11.5px;color:var(--text2);line-height:1.7">管理 <strong>GL科目、成本中心、利润中心</strong><br>对应模块：FI / CO<br>佛照关键：统一COA、19家法人利润中心100%</div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <span style="background:#fef3c7;color:#92400e;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">统一COA</span>
+      <span style="background:#fef3c7;color:#92400e;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">成本中心层级</span>
+      <span style="background:#fef3c7;color:#92400e;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">Hierarchy</span>
+    </div>
+  </div>
+  <div style="background:var(--white);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border-top:3px solid var(--steel)">
+    <div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:8px">⚙️ MDG-CF · 自定义对象</div>
+    <div style="font-size:11.5px;color:var(--text2);line-height:1.7">管理 <strong>自定义业务对象</strong>（工厂/汇率等）<br>客户可扩展任意业务实体<br>佛照：视需求后期评估</div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <span style="background:var(--bg);color:var(--steel);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">灵活扩展</span>
+      <span style="background:var(--bg);color:var(--steel);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">可选</span>
+    </div>
+  </div>
+</div>
 <h2 class="sec">1.4 MDG的数据域</h2>
 <p class="b">MDG按主数据类型分为若干"数据域（Domain）"，每个域有独立的数据模型和配置：</p>
 <table class="st">
@@ -125,6 +164,50 @@ table.st tr:hover td{background:var(--bg)}
 </table>
 <div class="box green"><strong>佛照项目提示：</strong>本次项目上线 MDG-M + MDG-BP + MDG-G 三个域，覆盖全部19家法人。MDG-CF视需求后期评估。</div>
 
+
+
+<div style="margin:24px 0 28px;background:var(--white);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">MDG 主数据完整治理生命周期</p>
+  <div style="position:relative;padding:0 0 16px">
+    <!-- 连接线 -->
+    <div style="position:absolute;top:30px;left:calc(8.33% + 12px);right:calc(8.33% + 12px);height:3px;background:linear-gradient(90deg,var(--dark),var(--primary),#059669);z-index:0"></div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;position:relative;z-index:1">
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">📝</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">申请</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">业务员Fiori<br>发起Change<br>Request</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:#1F70C1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">📦</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">暂存</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">数据进入<br>Staging Area<br>不影响生产</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:#4A6FA5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">✔️</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">校验</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">BRF+ 自动<br>检查必填字段<br>编码格式</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">👤</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">审批</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">业务Owner<br>工作流<br>签字确认</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:#059669;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">⚡</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">激活</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">数据写入<br>Active Area<br>(MARA等)</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:60px;height:60px;background:#0B2D47;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:24px;box-shadow:0 2px 8px rgba(0,94,184,.3)">🔁</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--dark)">分发</div>
+        <div style="font-size:9.5px;color:var(--muted);margin-top:3px">DRF 推送<br>各接收系统<br>工厂/子公司</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--pale);border-radius:6px;padding:8px 16px;font-size:11px;color:var(--text2);text-align:center;margin-top:4px">
+    💡 审批通过前，Staging Area 中的数据对业务完全不可见——这是 MDG 防止"先进系统再补审批"的核心设计
+  </div>
+</div>
 <h2 class="sec">1.5 MDG生命周期：一条主数据是如何诞生的？</h2>
 <div class="steps">
   <div class="step"><strong>1. 申请</strong>业务人员在Fiori发起Change Request（变更请求）</div>

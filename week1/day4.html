@@ -80,6 +80,59 @@ table.st tr:hover td{background:var(--bg)}
   <div class="meta"><span class="badge">⏱ 约55分钟</span><span class="badge">🔧 S/4H特有挑战</span></div>
 </div>
 
+
+
+<div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">S/4HANA BP统一模型：ECC独立 → S/4H合并</p>
+  <div style="display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:start">
+    <!-- ECC 旧模型 -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:10px">ECC 旧模型（独立维护）</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:#fee2e2;border:1.5px solid #dc2626;border-radius:7px;padding:12px">
+          <div style="font-size:11px;font-weight:700;color:#7f1d1d;margin-bottom:4px">👤 客户主数据</div>
+          <div style="font-size:9.5px;color:#991b1b;line-height:1.6">表：KNA1<br>事务码：FD01<br>独立编号，如 10001234</div>
+        </div>
+        <div style="background:#fee2e2;border:1.5px solid #dc2626;border-radius:7px;padding:12px">
+          <div style="font-size:11px;font-weight:700;color:#7f1d1d;margin-bottom:4px">🏭 供应商主数据</div>
+          <div style="font-size:9.5px;color:#991b1b;line-height:1.6">表：LFA1<br>事务码：MK01<br>独立编号，如 100001</div>
+        </div>
+        <div style="background:#fef3c7;border-radius:5px;padding:8px;font-size:9.5px;color:#92400e;text-align:center">
+          ⚠️ 同一家关联公司既是客户又是供应商，<br>在ECC中有两套独立编码，信息难以统一
+        </div>
+      </div>
+    </div>
+    <!-- 箭头 -->
+    <div style="text-align:center;padding-top:60px">
+      <div style="font-size:24px">→</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:4px">S/4H<br>升级</div>
+    </div>
+    <!-- S/4H 新模型 -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--primary);text-align:center;margin-bottom:10px">S/4HANA BP 统一模型 ✅</div>
+      <div style="background:linear-gradient(135deg,var(--dark),var(--primary));border-radius:8px;padding:14px;color:#fff">
+        <div style="font-size:12px;font-weight:800;text-align:center;margin-bottom:10px">Business Partner（BP）<br><span style="font-size:9.5px;font-weight:400;color:var(--pale)">表：BUT000 · 一个编号</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="background:rgba(255,255,255,.15);border-radius:5px;padding:7px;text-align:center;font-size:9.5px">
+            <div style="font-weight:700">FLCU01</div>
+            <div style="color:var(--pale);font-size:8.5px">公司代码层<br>客户（KNB1）</div>
+          </div>
+          <div style="background:rgba(255,255,255,.15);border-radius:5px;padding:7px;text-align:center;font-size:9.5px">
+            <div style="font-weight:700">FLVN01</div>
+            <div style="color:var(--pale);font-size:8.5px">采购组织层<br>供应商（LFM1）</div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:5px;padding:7px;text-align:center;font-size:9.5px;grid-column:1/-1">
+            <div style="font-weight:700">BUP001</div>
+            <div style="color:var(--pale);font-size:8.5px">通用 BP（基础实体）</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#d1fae5;border-radius:5px;padding:8px;font-size:9.5px;color:#065f46;text-align:center;margin-top:8px">
+        ✅ 关联公司只有一个BP编号<br>通过Role同时具备客户+供应商身份
+      </div>
+    </div>
+  </div>
+</div>
 <h2 class="sec">4.1 S/4HANA的BP统一模型——最大变化</h2>
 <p class="b">在SAP ECC时代，客户（Customer）和供应商（Vendor）是完全独立的两套主数据，分别存储在 KNA1（客户）和 LFA1（供应商）表中。</p>
 <p class="b">S/4HANA彻底改变了这一点：<strong>所有业务伙伴（客户、供应商、联系人、员工）统一合并为 Business Partner（BP）</strong>，存储在 BUT000 主表。</p>

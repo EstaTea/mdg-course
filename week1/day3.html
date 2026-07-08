@@ -89,6 +89,51 @@ table.st tr:hover td{background:var(--bg)}
   <li>S/4HANA强制要求：每条物料必须分配利润中心（ECC可以不配置）</li>
 </ul>
 
+
+
+<div style="margin:20px 0 28px;background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)">
+  <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">MDG-M 物料主数据核心实体与视图关系</p>
+  <div style="display:grid;grid-template-columns:1fr;gap:10px">
+    <!-- 核心实体 -->
+    <div style="background:var(--dark);border-radius:8px;padding:12px 16px;text-align:center">
+      <span style="font-size:13px;font-weight:800;color:#fff">Material（物料基本数据）</span>
+      <span style="font-size:10px;color:var(--light);margin-left:10px">→ SAP表：MARA</span>
+      <div style="margin-top:6px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+        <span style="background:rgba(255,255,255,.15);color:var(--pale);font-size:9.5px;padding:2px 8px;border-radius:10px">物料编号</span>
+        <span style="background:rgba(255,255,255,.15);color:var(--pale);font-size:9.5px;padding:2px 8px;border-radius:10px">物料类型 MTART</span>
+        <span style="background:rgba(255,255,255,.15);color:var(--pale);font-size:9.5px;padding:2px 8px;border-radius:10px">计量单位 MEINS</span>
+        <span style="background:rgba(255,255,255,.15);color:var(--pale);font-size:9.5px;padding:2px 8px;border-radius:10px">物料组 MATKL</span>
+      </div>
+    </div>
+    <!-- 视图层 -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="background:var(--pale);border-radius:6px;padding:10px;border-left:3px solid var(--primary)">
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">描述视图</div>
+        <div style="font-size:9.5px;color:var(--text2)">表：MAKT<br>中文描述 / 英文描述<br><span style="color:var(--primary);font-weight:600">MDG-M 必填</span></div>
+      </div>
+      <div style="background:var(--pale);border-radius:6px;padding:10px;border-left:3px solid var(--primary)">
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">工厂视图（MRP）</div>
+        <div style="font-size:9.5px;color:var(--text2)">表：MARC<br>MRP类型 / 采购员组<br>批量大小 / 安全库存</div>
+      </div>
+      <div style="background:#fef3c7;border-radius:6px;padding:10px;border-left:3px solid #d97706">
+        <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:4px">会计视图 ⚠️</div>
+        <div style="font-size:9.5px;color:#78350f">表：MBEW<br><strong>利润中心 PRCTR</strong><br><span style="color:#dc2626;font-weight:700">S/4H强制必填！</span></div>
+      </div>
+      <div style="background:var(--pale);border-radius:6px;padding:10px;border-left:3px solid var(--steel)">
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">采购视图</div>
+        <div style="font-size:9.5px;color:var(--text2)">表：EINE/EINA<br>采购组织 / 采购员<br>自动采购订单</div>
+      </div>
+      <div style="background:var(--pale);border-radius:6px;padding:10px;border-left:3px solid var(--steel)">
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">销售视图</div>
+        <div style="font-size:9.5px;color:var(--text2)">表：MVKE<br>销售组织 / 分销渠道<br>物料统计组</div>
+      </div>
+      <div style="background:var(--pale);border-radius:6px;padding:10px;border-left:3px solid var(--steel)">
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">评估视图</div>
+        <div style="font-size:9.5px;color:var(--text2)">表：MBEW<br>价格控制 V/S<br>标准价 / 移动平均价</div>
+      </div>
+    </div>
+  </div>
+</div>
 <h2 class="sec">3.2 MDG-M 数据模型</h2>
 <p class="b">MDG-M的标准数据模型 <strong>MM</strong> 包含以下核心实体（Entity Type）：</p>
 <table class="st">
